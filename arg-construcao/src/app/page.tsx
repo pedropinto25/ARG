@@ -26,17 +26,17 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-          <a href="/history" className={styles.card}>
+          <a href="/pages/history" className={styles.card}>
             <h2>História &rarr;</h2>
             <p>Saiba mais sobre a nossa história.</p>
           </a>
 
-          <a href="/contact" className={styles.card}>
+          <a href="/pages/contact" className={styles.card}>
             <h2>Contactos &rarr;</h2>
             <p>Entre em contato conosco.</p>
           </a>
 
-          <a href="/properties" className={styles.card}>
+          <a href="/pages/properties" className={styles.card}>
             <h2>Apartamentos/Prédios &rarr;</h2>
             <p>Veja nossos projetos.</p>
           </a>
