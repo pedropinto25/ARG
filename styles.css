@@ -38,7 +38,7 @@ body {
   }
   
   .navLink {
-   color:  #f8f9fa;
+    color: #f8f9fa;
     text-decoration: none;
     padding: 0.5rem 1rem;
     border: 2px solid #f8f9fa;
@@ -50,7 +50,7 @@ body {
     color: #343a40;
     background-color: #ffc107;
   }
-  
+
   .navToggle {
     display: none;
     font-size: 1.5rem;
