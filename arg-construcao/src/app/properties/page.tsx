@@ -1,4 +1,6 @@
-// app/properties/page.tsx
+// src/app/properties/page.tsx
+"use client";
+
 import Head from 'next/head';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
