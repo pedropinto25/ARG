@@ -1,0 +1,30 @@
+.customNavbar {
+    background-color: #343a40;
+    padding: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .customNavbar:hover {
+    background-color: #495057;
+  }
+  
+  .brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f8f9fa;
+    transition: color 0.3s ease;
+  }
+  
+  .brand:hover {
+    color: #ffc107;
+  }
+  
+  .navLink {
+    color: #f8f9fa;
+    margin-left: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .navLink:hover {
+    color: #ffc107;
+  }
