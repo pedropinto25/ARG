@@ -1,0 +1,25 @@
+.footer {
+    background-color: #343a40;
+    padding: 1rem 0;
+    text-align: center;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .text {
+    color: #f8f9fa;
+    padding: 0.5rem 1rem;
+    border: 2px solid #f8f9fa;
+    border-radius: 5px;
+    display: inline-block;
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .text:hover {
+    color: #343a40;
+    background-color: #ffc107;
+  }
