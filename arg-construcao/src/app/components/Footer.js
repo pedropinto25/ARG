@@ -1,4 +1,4 @@
-// components/Footer.js
+// app/components/Footer.tsx
 export default function Footer() {
     return (
       <footer>
