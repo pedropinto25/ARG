@@ -1,7 +1,11 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
+
+# Montar o diretório estático para servir arquivos estáticos como imagens, CSS, etc.
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 def read_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
