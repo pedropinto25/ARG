@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARG - Detalhes do Imóvel</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .property-info {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 15px;
+    }
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+      overflow: hidden;
+      border-radius: 15px;
+    }
+    .carousel-slide {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 400px; /* Altura fixa para o contêiner */
+      object-fit: cover; /* Ajusta a imagem dentro do contêiner */
+      border-radius: 15px;
+    }
+    .carousel-buttons {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+    .carousel-buttons button {
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    .thumbnails {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .thumbnails img {
+      width: 100px;
+      height: 75px; /* Altura fixa para as miniaturas */
+      object-fit: cover; /* Ajusta a imagem dentro do contêiner */
+      margin: 0 5px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: transform 0.3s ease-in-out;
+    }
+    .thumbnails img:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+
+  <main class="container my-5">
+    <section>
+      <h2 class="title">Detalhes do Imóvel</h2>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="carousel-container">
+            <div class="carousel-slide">
+              <img src="./tipos-de-apartamentos-quais-sao.jpg" alt="Imagem do Imóvel">
+              <img src="./apartamento_a_beira_mar_8310003737753577379.jpg" alt="Imagem do Imóvel">
+              <img src="images.jpg" alt="Imagem do Imóvel">
+              <!-- Adicione mais imagens conforme necessário -->
+            </div>
+            <div class="carousel-buttons">
+              <button id="prevBtn">&#10094;</button>
+              <button id="nextBtn">&#10095;</button>
+            </div>
+          </div>
+          <div class="thumbnails">
+            <img src="./tipos-de-apartamentos-quais-sao.jpg" alt="Imagem do Imóvel" onclick="showImage(0)">
+            <img src="./apartamento_a_beira_mar_8310003737753577379.jpg" alt="Imagem do Imóvel" onclick="showImage(1)">
+            <img src="./images.jpg" alt="Imagem do Imóvel" onclick="showImage(2)">
+            <!-- Adicione mais miniaturas conforme necessário -->
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="property-info">
+            <h3>Descrição do Imóvel</h3>
+            <p>Este é um imóvel maravilhoso localizado em uma área privilegiada...</p>
+            <ul>
+              <li>Área: 200m²</li>
+              <li>Quartos: 3</li>
+              <li>Banheiros: 2</li>
+              <li>Garagem: 1 vaga</li>
+              <!-- Adicione mais informações conforme necessário -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    function loadHTML(elementId, filePath) {
+      fetch(filePath)
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById(elementId).innerHTML = data;
+        })
+        .catch(error => console.error('Error loading HTML:', error));
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      loadHTML('navbar-placeholder', 'navbar.html');
+      loadHTML('footer-placeholder', 'footer.html');
+    });
+
+    const carouselSlide = document.querySelector('.carousel-slide');
+    const carouselImages = document.querySelectorAll('.carousel-slide img');
+
+    const prevBtn = document.querySelector('#prevBtn');
+    const nextBtn = document.querySelector('#nextBtn');
+
+    let counter = 0;
+    const size = carouselImages[0].clientWidth;
+
+    nextBtn.addEventListener('click', () => {
+      if (counter >= carouselImages.length - 1) return;
+      carouselSlide.style.transition = "transform 0.4s ease-in-out";
+      counter++;
+      carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (counter <= 0) return;
+      carouselSlide.style.transition = "transform 0.4s ease-in-out";
+      counter--;
+      carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+    });
+
+    function showImage(index) {
+      carouselSlide.style.transition = "transform 0.4s ease-in-out";
+      counter = index;
+      carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+    }
+  </script>
+</body>
+</html>
