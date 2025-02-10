@@ -1,34 +1,46 @@
 [
-    {
-        "id": 1,
-        "titulo": "Apartamento Luxuoso",
-        "descricao": "DescriÃ§Ã£o do ImÃ³vel 1",
-        "area": "210 m",
-        "quartos":"3",
-        "banhos":"2",
-        "garagem": "1",
-        "imagens": [
-            "./static/tipos-de-apartamentos-quais-sao.jpg",
-            "./static/apartamento_a_beira_mar_8310003737753577379.jpg",
-            "./static/images.jpg"
-        ],
-        "link": "property-details.html"
-    },
-    {
-        "id": 2,
-        "titulo": "Casa Moderna",
-        "descricao": "DescriÃ§Ã£o do ImÃ³vel 2",
-        "area": "200 m",
-        "quartos":"5",
-        "banhos":"3",
-        "garagem": "4",
-        "imagens": [
-            "./static/75552.jpg",
-            "./static/tipos-de-apartamentos-quais-sao.jpg",
-            "./static/apartamento_a_beira_mar_8310003737753577379.jpg",
-            "./static/images.jpg"
-        ],
-        "link": "property-details.html"
-    }
- 
+  {
+    "id": 1,
+    "titulo": "Apartamento Luxuoso",
+    "descricao": "Descrição do Imóvel 1",
+    "area": "210 m",
+    "quartos": "3",
+    "banhos": "2",
+    "garagem": "1",
+    "imagens": [
+      "./static/tipos-de-apartamentos-quais-sao.jpg",
+      "./static/apartamento_a_beira_mar_8310003737753577379.jpg",
+      "./static/images.jpg"
+    ],
+    "link": "property-details.html"
+  },
+  {
+    "id": 2,
+    "titulo": "Casa Moderna",
+    "descricao": "Descrição do Imóvel 2",
+    "area": "200 m",
+    "quartos": "5",
+    "banhos": "3",
+    "garagem": "4",
+    "imagens": [
+      "./static/75552.jpg",
+      "./static/tipos-de-apartamentos-quais-sao.jpg",
+      "./static/apartamento_a_beira_mar_8310003737753577379.jpg",
+      "./static/images.jpg"
+    ],
+    "link": "property-details.html"
+  },
+  {
+    "id": 1739227771179,
+    "titulo": "Teste 1",
+    "descricao": "teste",
+    "area": "123",
+    "quartos": "12",
+    "banhos": "2",
+    "garagem": "2",
+    "imagens": [
+      "https://raw.githubusercontent.com/pedropinto25/ARG/main/static/Background.png",
+      "https://raw.githubusercontent.com/pedropinto25/ARG/main/static/logo_arg_cube.jpg"
+    ]
+  }
 ]
