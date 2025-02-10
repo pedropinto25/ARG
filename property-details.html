@@ -36,7 +36,6 @@
     }
     .carousel-slide img {
       width: 100%;
-      height: 400px; /* Altura fixa para o contêiner */
       object-fit: cover; /* Ajusta a imagem dentro do contêiner */
       border-radius: 15px;
     }
@@ -49,12 +48,14 @@
       transform: translateY(-50%);
     }
     .carousel-buttons button {
-      background-color: rgba(0, 0, 0, 0.5);
+      background: none;
       border: none;
       color: white;
-      padding: 10px;
+      font-size: 2rem;
       cursor: pointer;
-      border-radius: 50%;
+    }
+    .carousel-buttons button:hover {
+      color: #ccc;
     }
     .thumbnails {
       display: flex;
@@ -98,37 +99,23 @@
       <div class="row">
         <div class="col-md-8">
           <div class="carousel-container">
-            <div class="carousel-slide">
-              <img src="./static/tipos-de-apartamentos-quais-sao.jpg" alt="Imagem do Imóvel">
-              <img src="./static/apartamento_a_beira_mar_8310003737753577379.jpg" alt="Imagem do Imóvel">
-              <img src="./static/images.jpg" alt="Imagem do Imóvel">
-              <!-- Adicione mais imagens conforme necessário -->
+            <div class="carousel-slide" id="carousel-slide">
+              <!-- As imagens serão carregadas aqui -->
             </div>
             <div class="carousel-buttons">
               <button id="prevBtn">&#10094;</button>
               <button id="nextBtn">&#10095;</button>
             </div>
           </div>
-          <div class="thumbnails">
-            <img src="./static/tipos-de-apartamentos-quais-sao.jpg" alt="Imagem do Imóvel" onclick="showImage(0)">
-            <img src="./static/apartamento_a_beira_mar_8310003737753577379.jpg" alt="Imagem do Imóvel" onclick="showImage(1)">
-            <img src="./static/images.jpg" alt="Imagem do Imóvel" onclick="showImage(2)">
-            <!-- Adicione mais miniaturas conforme necessário -->
+          <div class="thumbnails" id="thumbnails">
+            <!-- As miniaturas serão carregadas aqui -->
           </div>
           <br>
           <br>
         </div>
         <div class="col-md-4">
-          <div class="property-info">
-            <h3>Descrição do Imóvel</h3>
-            <p>Este é um imóvel maravilhoso localizado em uma área privilegiada...</p>
-            <ul>
-              <li>Área: 200m²</li>
-              <li>Quartos: 3</li>
-              <li>Casa de banho : 2</li>
-              <li>Garagem: 1 lugar</li>
-              <!-- Adicione mais informações conforme necessário -->
-            </ul>
+          <div class="property-info" id="property-info">
+            <!-- As informações do imóvel serão carregadas aqui -->
           </div>
         </div>
       </div>
@@ -199,35 +186,101 @@
     document.addEventListener('DOMContentLoaded', function() {
       loadHTML('navbar-placeholder', 'navbar.html', initializeNavbar);
       loadHTML('footer-placeholder', 'footer.html');
+
+      // Obter o ID do imóvel da URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const imovelId = urlParams.get('id');
+
+      // Carregar imóveis do arquivo JSON
+      fetch('imoveis.json')
+        .then(response => response.json())
+        .then(imoveis => {
+          const imovel = imoveis.find(imovel => imovel.id == imovelId);
+          if (imovel) {
+            // Carregar imagens no carrossel
+            const carouselSlide = document.getElementById('carousel-slide');
+            const thumbnails = document.getElementById('thumbnails');
+            imovel.imagens.forEach((imagem, index) => {
+              const imgElement = document.createElement('img');
+              imgElement.src = imagem;
+              imgElement.alt = 'Imagem do Imóvel';
+              imgElement.onload = () => {
+                // Ajustar a altura do contêiner ao tamanho da imagem
+                carouselSlide.style.height = imgElement.height + 'px';
+              };
+              carouselSlide.appendChild(imgElement);
+
+              const thumbElement = document.createElement('img');
+              thumbElement.src = imagem;
+              thumbElement.alt = 'Imagem do Imóvel';
+              thumbElement.onclick = () => showImage(index);
+              thumbnails.appendChild(thumbElement);
+            });
+
+            // Carregar informações do imóvel
+            const propertyInfo = document.getElementById('property-info');
+            propertyInfo.innerHTML = `
+              <h3>${imovel.titulo}</h3>
+              <p>${imovel.descricao}</p>
+              <ul>
+                <li>Área: ${imovel.area}</li>
+                <li>Quartos: ${imovel.quartos}</li>
+                <li>Casa de banho: ${imovel.banhos}</li>
+                <li>Garagem: ${imovel.garagem}</li>
+              </ul>
+            `;
+
+            // Atualizar o carrossel após carregar as imagens
+            updateCarousel();
+          } else {
+            console.error('Imóvel não encontrado');
+          }
+        })
+        .catch(error => console.error('Error loading properties:', error));
     });
 
-    const carouselSlide = document.querySelector('.carousel-slide');
-    const carouselImages = document.querySelectorAll('.carousel-slide img');
+    function updateCarousel() {
+      const carouselSlide = document.querySelector('.carousel-slide');
+      const carouselImages = document.querySelectorAll('.carousel-slide img');
 
-    const prevBtn = document.querySelector('#prevBtn');
-    const nextBtn = document.querySelector('#nextBtn');
+      const prevBtn = document.querySelector('#prevBtn');
+      const nextBtn = document.querySelector('#nextBtn');
 
-    let counter = 0;
-    const size = carouselImages[0].clientWidth;
+      let counter = 0;
 
-    nextBtn.addEventListener('click', () => {
-      if (counter >= carouselImages.length - 1) return;
-      carouselSlide.style.transition = "transform 0.4s ease-in-out";
-      counter++;
-      carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
-    });
+      function updateTransform() {
+        const size = carouselImages[0].clientWidth;
+        carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+      }
 
-    prevBtn.addEventListener('click', () => {
-      if (counter <= 0) return;
-      carouselSlide.style.transition = "transform 0.4s ease-in-out";
-      counter--;
-      carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
-    });
+      nextBtn.addEventListener('click', () => {
+        if (counter >= carouselImages.length - 1) {
+          counter = -1;
+        }
+        counter++;
+        carouselSlide.style.transition = "transform 0.4s ease-in-out";
+        updateTransform();
+      });
 
-    function showImage(index) {
-      carouselSlide.style.transition = "transform 0.4s ease-in-out";
-      counter = index;
-      carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+      prevBtn.addEventListener('click', () => {
+        if (counter <= 0) {
+          counter = carouselImages.length;
+        } if (counter <= 0) {
+          counter = carouselImages.length;
+        }
+        counter--;
+        carouselSlide.style.transition = "transform 0.4s ease-in-out";
+        updateTransform();
+      });
+
+      function showImage(index) {
+        counter = index;
+        carouselSlide.style.transition = "transform 0.4s ease-in-out";
+        updateTransform();
+      }
+
+      // Atualizar a transformação inicial
+      updateTransform();
     }
   </script>
 </body>

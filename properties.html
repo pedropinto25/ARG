@@ -64,15 +64,8 @@
     <section>
       <h2 class="title">Nossos Imóveis</h2>
       <p class="text">Veja a nossa seleção de imóveis disponíveis...</p>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="property-card" style="background-image: url('./static/tipos-de-apartamentos-quais-sao.jpg');" onclick="window.location.href='property-details.html';">
-            <div class="property-info">
-              <p>Descrição do Imóvel</p>
-            </div>
-          </div>
-        </div>
-        <!-- Adicione mais cartões de propriedade conforme necessário -->
+      <div id="property-list" class="row">
+        <!-- Os imóveis serão carregados aqui -->
       </div>
     </section>
   </main>
@@ -83,7 +76,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-   function loadHTML(elementId, filePath, callback) {
+    function loadHTML(elementId, filePath, callback) {
       fetch(filePath)
         .then(response => response.text())
         .then(data => {
@@ -92,7 +85,6 @@
         })
         .catch(error => console.error('Error loading HTML:', error));
     }
-
 
     function initializeNavbar() {
       const navToggle = document.querySelector('.navbar-toggler');
@@ -129,7 +121,7 @@
       // Adjust navbar based on window size
       function adjustNavbar() {
         if (window.innerWidth < 768) {
-          navbar.style.backgroundColor = '#black'; /* Cor de fundo igual à da página */
+          navbar.style.backgroundColor = 'black'; /* Cor de fundo igual à da página */
         } else {
           navbar.style.backgroundColor = ''; /* Remover cor de fundo */
         }
@@ -142,6 +134,26 @@
     document.addEventListener('DOMContentLoaded', function() {
       loadHTML('navbar-placeholder', 'navbar.html', initializeNavbar);
       loadHTML('footer-placeholder', 'footer.html');
+
+      // Carregar imóveis do arquivo JSON
+      fetch('imoveis.json')
+        .then(response => response.json())
+        .then(imoveis => {
+          const propertyList = document.getElementById('property-list');
+          imoveis.forEach(imovel => {
+            const propertyCard = document.createElement('div');
+            propertyCard.className = 'col-md-4';
+            propertyCard.innerHTML = `
+              <div class="property-card" style="background-image: url('${imovel.imagens[0]}');" onclick="window.location.href='property-details.html?id=${imovel.id}';">
+                <div class="property-info">
+                  <p>${imovel.descricao}</p>
+                </div>
+              </div>
+            `;
+            propertyList.appendChild(propertyCard);
+          });
+        })
+        .catch(error => console.error('Error loading properties:', error));
     });
   </script>
 </body>
