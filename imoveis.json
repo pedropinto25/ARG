@@ -29,5 +29,15 @@
       "./static/images.jpg"
     ],
     "link": "property-details.html"
+  },
+  {
+    "id": 1739229447787,
+    "titulo": "pedro1",
+    "descricao": "1",
+    "area": "1",
+    "quartos": "1",
+    "banhos": "1",
+    "garagem": "1",
+    "imagens": []
   }
 ]
