@@ -39,6 +39,7 @@
     @media (max-width: 768px) {
       .navbar {
         flex-direction: column;
+        background-color: #000000; /* Cor de fundo igual à da página */
       }
 
       .navbar-nav {
@@ -64,7 +65,7 @@
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="index.html">
         <img src="./static/logo_arg_cube-removebg-preview.png" alt="Logo" class="navbar-logo">
@@ -127,9 +128,9 @@
       // Adjust navbar based on window size
       function adjustNavbar() {
         if (window.innerWidth < 768) {
-          navbar.classList.add('bg-dark');
+          navbar.style.backgroundColor = '#000000'; /* Cor de fundo igual à da página */
         } else {
-          navbar.classList.remove('bg-dark');
+          navbar.style.backgroundColor = ''; /* Remover cor de fundo */
         }
       }
 

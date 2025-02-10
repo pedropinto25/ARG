@@ -37,10 +37,11 @@
     }
     body, html {
       height: 100%;
-    }
-    body {
+      margin: 0;
       display: flex;
       flex-direction: column;
+      background-color: #121212; /* Fundo escuro */
+      color: #f8f9fa; /* Texto claro */
     }
     main {
       flex: 1;
@@ -49,6 +50,10 @@
       position: relative;
       bottom: 0;
       width: 100%;
+      background-color: #343a40;
+      color: #f8f9fa;
+      text-align: center;
+      padding: 1rem 0;
     }
   </style>
 </head>
@@ -78,7 +83,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-    function loadHTML(elementId, filePath, callback) {
+   function loadHTML(elementId, filePath, callback) {
       fetch(filePath)
         .then(response => response.text())
         .then(data => {
@@ -87,6 +92,7 @@
         })
         .catch(error => console.error('Error loading HTML:', error));
     }
+
 
     function initializeNavbar() {
       const navToggle = document.querySelector('.navbar-toggler');
@@ -123,9 +129,9 @@
       // Adjust navbar based on window size
       function adjustNavbar() {
         if (window.innerWidth < 768) {
-          navbar.classList.add('bg-dark');
+          navbar.style.backgroundColor = '#black'; /* Cor de fundo igual à da página */
         } else {
-          navbar.classList.remove('bg-dark');
+          navbar.style.backgroundColor = ''; /* Remover cor de fundo */
         }
       }
 

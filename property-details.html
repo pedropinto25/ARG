@@ -7,8 +7,18 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      background-color: #121212; /* Fundo escuro */
+      color: #f8f9fa; /* Texto claro */
+    }
+
     .property-info {
-      background: #f8f9fa;
+      background: #2c2c2c; /* Fundo cinza escuro */
+      color: #f8f9fa; /* Letras brancas */
       padding: 20px;
       border-radius: 15px;
     }
@@ -63,6 +73,20 @@
     .thumbnails img:hover {
       transform: scale(1.1);
     }
+
+    main {
+      flex: 1;
+    }
+
+    footer {
+      position: relative;
+      bottom: 0;
+      width: 100%;
+      background-color: #343a40;
+      color: #f8f9fa;
+      text-align: center;
+      padding: 1rem 0;
+    }
   </style>
 </head>
 <body>
@@ -91,6 +115,8 @@
             <img src="./static/images.jpg" alt="Imagem do Imóvel" onclick="showImage(2)">
             <!-- Adicione mais miniaturas conforme necessário -->
           </div>
+          <br>
+          <br>
         </div>
         <div class="col-md-4">
           <div class="property-info">
@@ -114,22 +140,64 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-   function loadHTML(elementId, filePath, callback) {
-  fetch(filePath)
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById(elementId).innerHTML = data;
-      if (callback) callback();
-    })
-    .catch(error => console.error('Error loading HTML:', error));
-}
+    function loadHTML(elementId, filePath, callback) {
+      fetch(filePath)
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById(elementId).innerHTML = data;
+          if (callback) callback();
+        })
+        .catch(error => console.error('Error loading HTML:', error));
+    }
+
+    function initializeNavbar() {
+      const navToggle = document.querySelector('.navbar-toggler');
+      const navLinks = document.querySelector('.navbar-nav');
+      const navbar = document.querySelector('.navbar');
+
+      // Toggle navbar links
+      navToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('show');
+      });
+
+      // Smooth scroll for anchor links
+      const links = document.querySelectorAll('.nav-link');
+      for (const link of links) {
+        link.addEventListener('click', function(e) {
+          // Permitir redirecionamento para links externos
+          if (this.getAttribute('href').startsWith('http')) {
+            return;
+          }
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop,
+              behavior: 'smooth'
+            });
+          } else {
+            window.location.href = this.getAttribute('href');
+          }
+        });
+      }
+
+      // Adjust navbar based on window size
+      function adjustNavbar() {
+        if (window.innerWidth < 768) {
+          navbar.style.backgroundColor = 'black'; /* Cor de fundo igual à da página */
+        } else {
+          navbar.style.backgroundColor = ''; /* Remover cor de fundo */
+        }
+      }
+
+      window.addEventListener('resize', adjustNavbar);
+      adjustNavbar();
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-      loadHTML('navbar-placeholder', 'navbar.html');
+      loadHTML('navbar-placeholder', 'navbar.html', initializeNavbar);
       loadHTML('footer-placeholder', 'footer.html');
     });
 
@@ -161,54 +229,6 @@
       counter = index;
       carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
     }
-    function initializeNavbar() {
-  const navToggle = document.querySelector('.navbar-toggler');
-  const navLinks = document.querySelector('.navbar-nav');
-  const navbar = document.querySelector('.navbar');
-
-  // Toggle navbar links
-  navToggle.addEventListener('click', function() {
-    navLinks.classList.toggle('show');
-  });
-
-  // Smooth scroll for anchor links
-  const links = document.querySelectorAll('.nav-link');
-  for (const link of links) {
-    link.addEventListener('click', function(e) {
-      // Permitir redirecionamento para links externos
-      if (this.getAttribute('href').startsWith('http')) {
-        return;
-      }
-      e.preventDefault();
-      const targetId = this.getAttribute('href').substring(1);
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        window.scrollTo({
-          top: targetElement.offsetTop,
-          behavior: 'smooth'
-        });
-      } else {
-        window.location.href = this.getAttribute('href');
-      }
-    });
-  }
-
-  // Adjust navbar based on window size
-  function adjustNavbar() {
-    if (window.innerWidth < 768) {
-      navbar.classList.add('bg-dark');
-    } else {
-      navbar.classList.remove('bg-dark');
-    }
-  }
-
-  window.addEventListener('resize', adjustNavbar);
-  adjustNavbar();
-}
-document.addEventListener('DOMContentLoaded', function() {
-  loadHTML('navbar-placeholder', 'navbar.html', initializeNavbar);
-  loadHTML('footer-placeholder', 'footer.html');
-});
   </script>
 </body>
 </html>

@@ -15,7 +15,7 @@
       display: flex;
       flex-direction: column;
       font-family: 'Open Sans Condensed', sans-serif;
-      background-color: #121212; /* Fundo escuro */
+      background-color: black; /* Fundo escuro */
       color: #f8f9fa; /* Texto claro */
     }
 
@@ -124,7 +124,7 @@
       border-bottom-style: solid;
       border-top-color: #FFF;
       border-bottom-color: #FFF;
-      transform: scale(0.1, 1);
+      transform: scale(0 1);
     }
 
     .btn-one:hover span {
@@ -227,9 +227,9 @@
       // Adjust navbar based on window size
       function adjustNavbar() {
         if (window.innerWidth < 768) {
-          navbar.classList.add('bg-dark');
+          navbar.style.backgroundColor = 'black'; /* Cor de fundo igual à da página */
         } else {
-          navbar.classList.remove('bg-dark');
+          navbar.style.backgroundColor = ''; /* Remover cor de fundo */
         }
       }
 
