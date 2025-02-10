@@ -44,6 +44,10 @@
   <script type="module">
     import GITHUB_TOKEN from './config.js';
 
+    function utf8ToBase64(str) {
+      return btoa(unescape(encodeURIComponent(str)));
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
       const propertyList = document.getElementById('property-list');
       const addPropertyForm = document.getElementById('add-property-form');
@@ -142,7 +146,7 @@
             },
             body: JSON.stringify({
               message: 'Atualizar imoveis.json',
-              content: btoa(updatedContent),
+              content: utf8ToBase64(updatedContent),
               sha: sha
             })
           })
