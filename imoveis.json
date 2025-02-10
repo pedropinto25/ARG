@@ -29,28 +29,5 @@
       "./static/images.jpg"
     ],
     "link": "property-details.html"
-  },
-  {
-    "id": 1739227771179,
-    "titulo": "Teste 1",
-    "descricao": "teste",
-    "area": "123",
-    "quartos": "12",
-    "banhos": "2",
-    "garagem": "2",
-    "imagens": [
-      "https://raw.githubusercontent.com/pedropinto25/ARG/main/static/Background.png",
-      "https://raw.githubusercontent.com/pedropinto25/ARG/main/static/logo_arg_cube.jpg"
-    ]
-  },
-  {
-    "id": 1739229272644,
-    "titulo": "",
-    "descricao": "",
-    "area": "",
-    "quartos": "",
-    "banhos": "",
-    "garagem": "",
-    "imagens": []
   }
 ]
