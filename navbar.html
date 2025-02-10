@@ -1,14 +1,79 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARG - Navbar</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #000000;
+      color: #343a40;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: flex-start; /* Alinhar itens à esquerda */
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .navbar-logo {
+      height: 60px; /* Tamanho aumentado do logo */
+      margin-right: 10px;
+    }
+
+    .navbar-nav .nav-link {
+      color: #f8f9fa;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #ffc107;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+      }
+
+      .navbar-nav {
+        text-align: left; /* Alinhar à esquerda */
+        flex-direction: column;
+        align-items: flex-start; /* Alinhar à esquerda */
+        gap: 0.5rem;
+      }
+
+      .navbar-toggler {
+        display: block;
+      }
+
+      .navbar-nav {
+        display: none;
+        width: 100%;
+      }
+
+      .navbar-nav.show {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.html">ARG</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" href="index.html">
+        <img src="./static/logo_arg_cube-removebg-preview.png" alt="Logo" class="navbar-logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Início</a>
-          </li>
+        <ul class="navbar-nav mb-2 mb-lg-0"> <!-- Removido me-auto -->
           <li class="nav-item">
             <a class="nav-link" href="history.html">História</a>
           </li>
@@ -22,3 +87,55 @@
       </div>
     </div>
   </nav>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const navToggle = document.querySelector('.navbar-toggler');
+      const navLinks = document.querySelector('.navbar-nav');
+      const navbar = document.querySelector('.navbar');
+
+      // Toggle navbar links
+      navToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('show');
+      });
+
+      // Smooth scroll for anchor links
+      const links = document.querySelectorAll('.nav-link');
+      for (const link of links) {
+        link.addEventListener('click', function(e) {
+          // Permitir redirecionamento para links externos
+          if (this.getAttribute('href').startsWith('http')) {
+            return;
+          }
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop,
+              behavior: 'smooth'
+            });
+          } else {
+            window.location.href = this.getAttribute('href');
+          }
+        });
+      }
+
+      // Adjust navbar based on window size
+      function adjustNavbar() {
+        if (window.innerWidth < 768) {
+          navbar.classList.add('bg-dark');
+        } else {
+          navbar.classList.remove('bg-dark');
+        }
+      }
+
+      window.addEventListener('resize', adjustNavbar);
+      adjustNavbar();
+    });
+  </script>
+</body>
+</html>

@@ -6,47 +6,28 @@
   <title>ARG - Início</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    footer {
+      background-color: #343a40;
+      color: #f8f9fa;
+      text-align: center;
+      padding: 1rem 0;
+    }
+  </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="index.html">ARG</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Início</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="history.html">História</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contactos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="properties.html">Imóveis</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Mais
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Serviços</a></li>
-              <li><a class="dropdown-item" href="#">Equipe</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Contato</a></li>
-            </ul>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Pesquisar</button>
-        </form>
-      </div>
-    </div>
-  </nav>
+  <div id="navbar-placeholder"></div>
 
   <main class="container my-5">
     <section>
@@ -61,17 +42,63 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-    function loadHTML(elementId, filePath) {
+    function loadHTML(elementId, filePath, callback) {
       fetch(filePath)
         .then(response => response.text())
         .then(data => {
           document.getElementById(elementId).innerHTML = data;
+          if (callback) callback();
         })
         .catch(error => console.error('Error loading HTML:', error));
     }
 
+    function initializeNavbar() {
+      const navToggle = document.querySelector('.navbar-toggler');
+      const navLinks = document.querySelector('.navbar-nav');
+      const navbar = document.querySelector('.navbar');
+
+      // Toggle navbar links
+      navToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('show');
+      });
+
+      // Smooth scroll for anchor links
+      const links = document.querySelectorAll('.nav-link');
+      for (const link of links) {
+        link.addEventListener('click', function(e) {
+          // Permitir redirecionamento para links externos
+          if (this.getAttribute('href').startsWith('http')) {
+            return;
+          }
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop,
+              behavior: 'smooth'
+            });
+          } else {
+            window.location.href = this.getAttribute('href');
+          }
+        });
+      }
+
+      // Adjust navbar based on window size
+      function adjustNavbar() {
+        if (window.innerWidth < 768) {
+          navbar.classList.add('bg-dark');
+        } else {
+          navbar.classList.remove('bg-dark');
+        }
+      }
+
+      window.addEventListener('resize', adjustNavbar);
+      adjustNavbar();
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-      loadHTML('navbar-placeholder', 'navbar.html');
+      loadHTML('navbar-placeholder', 'navbar.html', initializeNavbar);
       loadHTML('footer-placeholder', 'footer.html');
     });
   </script>

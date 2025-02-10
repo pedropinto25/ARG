@@ -6,6 +6,153 @@
   <title>ARG - Contactos</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    @import 'https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300';
+
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Open Sans Condensed', sans-serif;
+      background-color: #121212; /* Fundo escuro */
+      color: #f8f9fa; /* Texto claro */
+    }
+
+    main {
+      flex: 1;
+    }
+
+    footer {
+      background-color: #343a40;
+      color: #f8f9fa;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .contact-info {
+      margin-bottom: 20px;
+    }
+
+    .contact-info a {
+      color: #007bff; /* Cor do link */
+      text-decoration: none;
+    }
+
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+
+    .map-container {
+      width: 100%;
+      height: 400px;
+      margin-top: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #f8f9fa; /* Cor do título */
+      text-align: center;
+    }
+
+    .text {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: #e0e0e0; /* Cor do texto */
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .contact-card {
+      background-color: #1f1f1f; /* Fundo escuro do contêiner */
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center; /* Centralizar conteúdo */
+    }
+
+    .contact-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-card h3 {
+      margin-bottom: 15px;
+      color: #f8f9fa; /* Cor do subtítulo */
+    }
+
+    .contact-card p {
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      line-height: 50px;
+      height: 50px;
+      text-align: center;
+      width: 250px;
+      cursor: pointer;
+      color: #FFF;
+      transition: all 0.3s;
+      position: relative;
+      margin-top: 20px;
+    }
+
+    .btn span {
+      transition: all 0.3s;
+      color: #FFF; /* Cor do texto dentro do botão */
+    }
+
+    .btn-one::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0;
+      transition: all 0.3s;
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+      border-top-style: solid;
+      border-bottom-style: solid;
+      border-top-color: #FFF;
+      border-bottom-color: #FFF;
+      transform: scale(0.1, 1);
+    }
+
+    .btn-one:hover span {
+      letter-spacing: 2px;
+    }
+
+    .btn-one:hover::before {
+      opacity: 1; 
+      transform: scale(1, 1); 
+    }
+
+    .btn-one::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      transition: all 0.3s;
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    .btn-one:hover::after {
+      opacity: 0; 
+      transform: scale(0.1, 1);
+    }
+  </style>
 </head>
 <body>
   <div id="navbar-placeholder"></div>
@@ -13,8 +160,19 @@
   <main class="container my-5">
     <section>
       <h2 class="title">Contacte-nos</h2>
-      <p class="text">Para mais informações, entre em contacto connosco através do formulário abaixo...</p>
-      <!-- Adicione aqui o formulário de contacto -->
+      <p class="text">Para mais informações, entre em contacto connosco através dos seguintes meios:</p>
+      <div class="contact-card">
+        <h3>Informações de Contato</h3>
+        <div class="contact-info">
+          <p><strong>Telefone:</strong> <a href="tel:+351123456789">+351 123 456 789</a></p>
+          <p><strong>Email:</strong> <a href="mailto:info@arg.com">info@arg.com</a></p>
+          <p><strong>Endereço:</strong> Rua da Póvoa de Cima, N110, Paços de Brandão, 4535-293</p>
+        </div>
+        <a href="mailto:info@arg.com" class="btn btn-one"><span>Enviar Email</span></a>
+      </div>
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d269.6538712848254!2d-8.580795653426657!3d40.97636811222685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2478b0d731cef1%3A0x7664932d3affd430!2sR.%20P%C3%B3voa%20de%20Cima!5e1!3m2!1spt-PT!2spt!4v1739202236248!5m2!1spt-PT!2spt" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
     </section>
   </main>
 
@@ -24,17 +182,63 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-    function loadHTML(elementId, filePath) {
+    function loadHTML(elementId, filePath, callback) {
       fetch(filePath)
         .then(response => response.text())
         .then(data => {
           document.getElementById(elementId).innerHTML = data;
+          if (callback) callback();
         })
         .catch(error => console.error('Error loading HTML:', error));
     }
 
+    function initializeNavbar() {
+      const navToggle = document.querySelector('.navbar-toggler');
+      const navLinks = document.querySelector('.navbar-nav');
+      const navbar = document.querySelector('.navbar');
+
+      // Toggle navbar links
+      navToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('show');
+      });
+
+      // Smooth scroll for anchor links
+      const links = document.querySelectorAll('.nav-link');
+      for (const link of links) {
+        link.addEventListener('click', function(e) {
+          // Permitir redirecionamento para links externos
+          if (this.getAttribute('href').startsWith('http')) {
+            return;
+          }
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop,
+              behavior: 'smooth'
+            });
+          } else {
+            window.location.href = this.getAttribute('href');
+          }
+        });
+      }
+
+      // Adjust navbar based on window size
+      function adjustNavbar() {
+        if (window.innerWidth < 768) {
+          navbar.classList.add('bg-dark');
+        } else {
+          navbar.classList.remove('bg-dark');
+        }
+      }
+
+      window.addEventListener('resize', adjustNavbar);
+      adjustNavbar();
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-     ('navbar-placeholder', 'navbar.html');
+      loadHTML('navbar-placeholder', 'navbar.html', initializeNavbar);
       loadHTML('footer-placeholder', 'footer.html');
     });
   </script>
