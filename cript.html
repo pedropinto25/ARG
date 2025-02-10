@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uso de Token Criptografado</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+  <script type="module">
+    import GITHUB_TOKEN from './config.js';
+
+    const secretKey = 'sua-chave-secreta';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Descriptografar o token
+      document.getElementById('use-token-btn').addEventListener('click', () => {
+        const decryptedBytes = CryptoJS.AES.decrypt(GITHUB_TOKEN, secretKey);
+        const decryptedToken = decryptedBytes.toString(CryptoJS.enc.Utf8);
+        document.getElementById('response').innerText = `Token Descriptografado: ${decryptedToken}`;
+      });
+
+      // Criptografar o token
+      document.getElementById('encrypt-btn').addEventListener('click', () => {
+        const token = document.getElementById('token-input').value;
+        const encryptedToken = CryptoJS.AES.encrypt(token, secretKey).toString();
+        document.getElementById('encrypted-response').innerText = `Token Criptografado: ${encryptedToken}`;
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Uso de Token Criptografado</h1>
+  
+  <section>
+    <h2>Descriptografar Token</h2>
+    <button id="use-token-btn">Mostrar Token</button>
+    <p id="response"></p>
+  </section>
+
+  <section>
+    <h2>Criptografar Token</h2>
+    <input type="text" id="token-input" placeholder="Digite o token para criptografar">
+    <button id="encrypt-btn">Criptografar Token</button>
+    <p id="encrypted-response"></p>
+  </section>
+</body>
+</html>
