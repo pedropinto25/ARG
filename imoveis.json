@@ -29,15 +29,5 @@
       "./static/images.jpg"
     ],
     "link": "property-details.html"
-  },
-  {
-    "id": 1739229811369,
-    "titulo": "Teste pedro",
-    "descricao": "pedro",
-    "area": "12",
-    "quartos": "12",
-    "banhos": "1",
-    "garagem": "1",
-    "imagens": []
   }
 ]
