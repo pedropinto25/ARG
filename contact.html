@@ -24,11 +24,7 @@
     }
 
     footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
       background-color: black;
-      border-color: aliceblue;
       color: #f8f9fa;
       text-align: center;
       padding: 1rem 0;
@@ -239,7 +235,8 @@
 
       window.addEventListener('resize', adjustNavbar);
       adjustNavbar();
-    }  
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
       loadHTML('navbar-placeholder', 'navbar.html', initializeNavbar);
       loadHTML('footer-placeholder', 'footer.html');
