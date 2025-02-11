@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARG - Início</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      background-color: #000000; /* Fundo escuro */
+      color: #f8f9fa; /* Texto claro */
+    }
+
+    main {
+      flex: 1;
+    }
+
+    footer {
+      background-color: #343a40;
+      color: #f8f9fa;
+      text-align: center;
+      padding: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+
+  <main class="container my-5">
+    <section>
+      <h2 class="title">Bem-vindo à ARG</h2>
+      <p class="text">A ARG é uma empresa de construção dedicada a fornecer serviços de alta qualidade...</p>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="loading.js"></script>
+  <script>
+    function loadHTML(elementId, filePath, callback) {
+      fetch(filePath)
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById(elementId).innerHTML = data;
+          if (callback) callback();
+        })
+        .catch(error => console.error('Error loading HTML:', error));
+    }
+
+    function initializeNavbar() {
+      const navToggle = document.querySelector('.navbar-toggler');
+      const navLinks = document.querySelector('.navbar-nav');
+      const navbar = document.querySelector('.navbar');
+
+      // Toggle navbar links
+      navToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('show');
+      });
+
+      // Smooth scroll for anchor links
+      const links = document.querySelectorAll('.nav-link');
+      for (const link of links) {
+        link.addEventListener('click', function(e) {
+          // Permitir redirecionamento para links externos
+          if (this.getAttribute('href').startsWith('http')) {
+            return;
+          }
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop,
+              behavior: 'smooth'
+            });
+          } else {
+            window.location.href = this.getAttribute('href');
+          }
+        });
+      }
+
+      // Adjust navbar based on window size
+      function adjustNavbar() {
+        if (window.innerWidth < 768) {
+          navbar.style.backgroundColor = '#000000'; /* Cor de fundo igual à da página */
+        } else {
+          navbar.style.backgroundColor = ''; /* Remover cor de fundo */
+        }
+      }
+
+      window.addEventListener('resize', adjustNavbar);
+      adjustNavbar();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      loadHTML('navbar-placeholder', 'navbar.html', initializeNavbar);
+      loadHTML('footer-placeholder', 'footer.html');
+    });
+  </script>
+</body>
+</html>

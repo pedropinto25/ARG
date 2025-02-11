@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Credenciais Criptografadas</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+  <script>
+    const secretKey = 'sua-chave-secreta';
+
+    function encryptData(data) {
+      return CryptoJS.AES.encrypt(data, secretKey).toString();
+    }
+
+    function handleGenerate() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const encryptedUsername = encryptData(username);
+      const encryptedPassword = encryptData(password);
+
+      document.getElementById('encrypted-username').textContent = encryptedUsername;
+      document.getElementById('encrypted-password').textContent = encryptedPassword;
+    }
+  </script>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center">Gerador de Credenciais Criptografadas</h1>
+    <form onsubmit="event.preventDefault(); handleGenerate();">
+      <div class="form-group">
+        <label for="username">Nome de Utilizador</label>
+        <input type="text" class="form-control" id="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" class="form-control" id="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Gerar Credenciais</button>
+    </form>
+    <div class="mt-4">
+      <h3>Credenciais Criptografadas</h3>
+      <p><strong>Nome de Utilizador:</strong> <span id="encrypted-username"></span></p>
+      <p><strong>Senha:</strong> <span id="encrypted-password"></span></p>
+    </div>
+  </div>
+</body>
+</html>

@@ -11,8 +11,8 @@
       margin: 0;
       display: flex;
       flex-direction: column;
-      background-color: #f8f9fa; /* Fundo claro */
-      color: #343a40; /* Texto escuro */
+      background-color: #f8f9fa;
+      color: #343a40;
     }
     main {
       flex: 1;
@@ -39,158 +39,12 @@
     .image-list img.selected {
       border: 2px solid #007bff;
     }
+    #property-section {
+      display: none;
+    }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-  <script type="module">
-    import GITHUB_TOKEN from './config.js';
-
-    function utf8ToBase64(str) {
-      return btoa(unescape(encodeURIComponent(str)));
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      const propertyList = document.getElementById('property-list');
-      const addPropertyForm = document.getElementById('add-property-form');
-      const imageList = document.getElementById('image-list');
-      let selectedImages = [];
-      const secretKey = 'sua-chave-secreta';
-
-      // Descriptografar o token
-      const decryptedBytes = CryptoJS.AES.decrypt(GITHUB_TOKEN, secretKey);
-      const decryptedToken = decryptedBytes.toString(CryptoJS.enc.Utf8);
-
-      // Carregar imóveis do arquivo JSON
-      fetch('https://raw.githubusercontent.com/pedropinto25/ARG/main/imoveis.json')
-        .then(response => response.json())
-        .then(imoveis => {
-          imoveis.forEach(imovel => {
-            addPropertyToList(imovel);
-          });
-        })
-        .catch(error => console.error('Error loading properties:', error));
-
-      // Carregar imagens do repositório GitHub
-      fetch('https://api.github.com/repos/pedropinto25/ARG/contents/static', {
-        headers: {
-          'Authorization': `token ${decryptedToken}`
-        }
-      })
-        .then(response => response.json())
-        .then(files => {
-          files.forEach(file => {
-            if (file.type === 'file' && /\.(jpg|jpeg|png|gif)$/i.test(file.name)) {
-              const img = document.createElement('img');
-              img.src = file.download_url;
-              img.alt = file.name;
-              img.addEventListener('click', () => {
-                img.classList.toggle('selected');
-                if (img.classList.contains('selected')) {
-                  selectedImages.push(img.src);
-                } else {
-                  selectedImages = selectedImages.filter(url => url !== img.src);
-                }
-              });
-              imageList.appendChild(img);
-            }
-          });
-        })
-        .catch(error => console.error('Error loading images:', error));
-
-      // Adicionar imóvel à lista
-      function addPropertyToList(imovel) {
-        const li = document.createElement('li');
-        li.className = 'list-group-item d-flex justify-content-between align-items-center';
-        li.innerHTML = `
-          <span>${imovel.titulo}</span>
-          <button class="btn btn-danger btn-sm" onclick="removeProperty(${imovel.id})">Remover</button>
-        `;
-        propertyList.appendChild(li);
-      }
-
-      // Remover imóvel
-      window.removeProperty = function(id) {
-        // Remover do DOM
-        const item = document.querySelector(`button[onclick="removeProperty(${id})"]`).parentElement;
-        propertyList.removeChild(item);
-
-        // Remover do arquivo JSON
-        fetch('https://raw.githubusercontent.com/pedropinto25/ARG/main/imoveis.json')
-          .then(response => response.json())
-          .then(imoveis => {
-            const updatedImoveis = imoveis.filter(imovel => imovel.id !== id);
-            saveProperties(updatedImoveis);
-          })
-          .catch(error => console.error('Error removing property:', error));
-      };
-
-      // Salvar imóveis no arquivo JSON
-      function saveProperties(imoveis) {
-        const updatedContent = JSON.stringify(imoveis, null, 2);
-
-        // Obter o SHA atual do arquivo
-        fetch('https://api.github.com/repos/pedropinto25/ARG/contents/imoveis.json', {
-          headers: {
-            'Authorization': `token ${decryptedToken}`
-          }
-        })
-        .then(response => response.json())
-        .then(data => {
-          const sha = data.sha;
-
-          // Atualizar o arquivo com o novo conteúdo
-          fetch('https://api.github.com/repos/pedropinto25/ARG/contents/imoveis.json', {
-            method: 'PUT',
-            headers: {
-              'Authorization': `token ${decryptedToken}`,
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              message: 'Atualizar imoveis.json',
-              content: utf8ToBase64(updatedContent),
-              sha: sha
-            })
-          })
-          .then(response => response.json())
-          .then(data => {
-            console.log('Imóveis atualizados:', data);
-          })
-          .catch(error => console.error('Error saving properties:', error));
-        })
-        .catch(error => console.error('Error fetching SHA:', error));
-      }
-
-      // Adicionar novo imóvel
-      addPropertyForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const newImovel = {
-          id: Date.now(), // Usar timestamp como ID
-          titulo: document.getElementById('titulo').value,
-          descricao: document.getElementById('descricao').value,
-          area: document.getElementById('area').value,
-          quartos: document.getElementById('quartos').value,
-          banhos: document.getElementById('banhos').value,
-          garagem: document.getElementById('garagem').value,
-          imagens: selectedImages
-        };
-
-        fetch('https://raw.githubusercontent.com/pedropinto25/ARG/main/imoveis.json')
-          .then(response => response.json())
-          .then(imoveis => {
-            imoveis.push(newImovel);
-            saveProperties(imoveis);
-          })
-          .catch(error => console.error('Error adding property:', error));
-
-        addPropertyToList(newImovel);
-
-        // Limpar formulário
-        addPropertyForm.reset();
-        selectedImages = [];
-        document.querySelectorAll('.image-list img').forEach(img => img.classList.remove('selected'));
-      });
-    });
-  </script>
+  <script type="module" src="./main.js"></script>
 </head>
 <body>
   <header class="bg-dark text-white text-center py-3">
@@ -198,51 +52,67 @@
   </header>
 
   <main class="container">
-    <section>
-      <h2>Adicionar Imóvel</h2>
-      <form id="add-property-form">
-        <div class="form-group">
-          <label for="titulo">Título</label>
-          <input type="text" class="form-control" id="titulo" required>
-        </div>
-        <div class="form-group">
-          <label for="descricao">Descrição</label>
-          <textarea class="form-control" id="descricao" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="area">Área</label>
-          <input type="text" class="form-control" id="area" required>
-        </div>
-        <div class="form-group">
-          <label for="quartos">Quartos</label>
-          <input type="number" class="form-control" id="quartos" required>
-        </div>
-        <div class="form-group">
-          <label for="banhos">Casa de banho</label>
-          <input type="number" class="form-control" id="banhos" required>
-        </div>
-        <div class="form-group">
-          <label for="garagem">Garagem</label>
-          <input type="text" class="form-control" id="garagem" required>
-        </div>
-        <div class="form-group">
-          <label for="imagens">Imagens</label>
-          <div id="image-list" class="image-list"></div>
-        </div>
-        <button type="submit" class="btn btn-primary">Adicionar Imóvel</button>
-      </form>
-    </section>
-
-    <section class="mt-5">
-      <h2>Imóveis Existentes</h2>
-      <ul id="property-list" class="list-group">
-        <!-- Os imóveis serão listados aqui -->
-      </ul>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 ARG - Imóveis</p>
-  </footer>
-</body>
-</html>
+    <section id="login-form">
+      <h2>Login</h2>
+      <form>
+        <form>
+            <div class="form-group">
+              <label for="username">Usuário</label>
+              <input type="text" class="form-control" id="username" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Senha</label>
+              <input type="password" class="form-control" id="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
+        </section>
+    
+        <section id="property-section" style="display: none;">
+          <h2>Adicionar Imóvel</h2>
+          <form id="add-property-form">
+            <div class="form-group">
+              <label for="titulo">Título</label>
+              <input type="text" class="form-control" id="titulo" required>
+            </div>
+            <div class="form-group">
+              <label for="descricao">Descrição</label>
+              <textarea class="form-control" id="descricao" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="area">Área</label>
+              <input type="text" class="form-control" id="area" required>
+            </div>
+            <div class="form-group">
+              <label for="quartos">Quartos</label>
+              <input type="number" class="form-control" id="quartos" required>
+            </div>
+            <div class="form-group">
+              <label for="banhos">Casa de banho</label>
+              <input type="number" class="form-control" id="banhos" required>
+            </div>
+            <div class="form-group">
+              <label for="garagem">Garagem</label>
+              <input type="text" class="form-control" id="garagem" required>
+            </div>
+            <div class="form-group">
+              <label for="imagens">Imagens</label>
+              <div id="image-list" class="image-list"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Adicionar Imóvel</button>
+          </form>
+        </section>
+    
+        <section class="mt-5">
+          <h2>Imóveis Existentes</h2>
+          <ul id="property-list" class="list-group">
+            <!-- Os imóveis serão listados aqui -->
+          </ul>
+        </section>
+      </main>
+    
+      <footer>
+        <p>&copy; 2025 ARG - Imóveis</p>
+      </footer>
+    </body>
+    </html>
