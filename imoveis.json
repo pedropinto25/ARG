@@ -29,19 +29,5 @@
       "./static/images.jpg"
     ],
     "link": "property-details.html"
-  },
-  {
-    "id": 1739232859400,
-    "titulo": "login",
-    "descricao": "123 teste",
-    "area": "12",
-    "quartos": "22",
-    "banhos": "1",
-    "garagem": "0",
-    "imagens": [
-      "https://raw.githubusercontent.com/pedropinto25/ARG/main/static/Background.png",
-      "https://raw.githubusercontent.com/pedropinto25/ARG/main/static/75552.jpg",
-      "https://raw.githubusercontent.com/pedropinto25/ARG/main/static/tipos-de-apartamentos-quais-sao.jpg"
-    ]
   }
 ]
