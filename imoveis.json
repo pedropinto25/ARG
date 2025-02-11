@@ -31,28 +31,17 @@
     "link": "property-details.html"
   },
   {
-    "id": 1739227771179,
-    "titulo": "Teste 1",
-    "descricao": "teste",
-    "area": "123",
-    "quartos": "12",
-    "banhos": "2",
-    "garagem": "2",
+    "id": 1739232859400,
+    "titulo": "login",
+    "descricao": "123 teste",
+    "area": "12",
+    "quartos": "22",
+    "banhos": "1",
+    "garagem": "0",
     "imagens": [
       "https://raw.githubusercontent.com/pedropinto25/ARG/main/static/Background.png",
-      "https://raw.githubusercontent.com/pedropinto25/ARG/main/static/logo_arg_cube.jpg"
-    ]
-  },
-  {
-    "id": 1739228265710,
-    "titulo": "teste 21",
-    "descricao": "21",
-    "area": "21",
-    "quartos": "21",
-    "banhos": "21",
-    "garagem": "21",
-    "imagens": [
-      "https://raw.githubusercontent.com/pedropinto25/ARG/main/static/images.jpg"
+      "https://raw.githubusercontent.com/pedropinto25/ARG/main/static/75552.jpg",
+      "https://raw.githubusercontent.com/pedropinto25/ARG/main/static/tipos-de-apartamentos-quais-sao.jpg"
     ]
   }
 ]
