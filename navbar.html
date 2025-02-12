@@ -23,23 +23,44 @@
     }
 
     .navbar-logo {
-      height: 60px; /* Tamanho aumentado do logo */
-      margin-right: 10px;
+      height: 70px; /* Tamanho aumentado do logo */
+      margin-right: 5px;
+      justify-content: flex-start;
     }
 
     .navbar-nav .nav-link {
       color: #f8f9fa;
-      transition: color 0.3s ease;
+      font-size: 1.4rem; /* Aumentar tamanho da fonte */
+      transition: color 0.5s ease, font-size 0.5s ease, border-bottom 0.5s ease;
+      position: relative;
     }
 
     .navbar-nav .nav-link:hover {
       color: #ffc107;
+      font-size: 1.6rem; /* Aumentar tamanho da fonte ao passar o rato */
+    }
+
+    .navbar-nav .nav-link::after {
+      content: '';
+      display: block;
+      width: 0; /* Inicialmente, a linha não é visível */
+      height: 3px; /* Espessura da linha */
+      background-color: white;
+      position: absolute;
+      bottom: 10px; /* Mais próxima da palavra */
+      left: 1; /* Começa no início da palavra */
+      transition: width 0.5s ease;
+    }
+
+    .navbar-nav .nav-link:hover::after {
+      width: 50%; /* A linha aparece até o meio do link */
     }
 
     @media (max-width: 768px) {
       .navbar {
         flex-direction: column;
-        background-color: #000000; /* Cor de fundo igual à da página */
+        background-color: rgba(52, 58, 64, 0.4); /* Cor de fundo igual à da página */
+        backdrop-filter: blur(0.5px);
       }
 
       .navbar-nav {
@@ -100,7 +121,7 @@
 
       // Toggle navbar links
       navToggle.addEventListener('click', function() {
-        navLinks.classList.toggle('show');
+       Links.classList.toggle('show');
       });
 
       // Smooth scroll for anchor links

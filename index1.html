@@ -10,47 +10,394 @@
     body, html {
       height: 100%;
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      background-color: #000000; /* Fundo escuro */
-      color: #f8f9fa; /* Texto claro */
+      color: #f8f9fa;
+      overflow-y: scroll; /* Scroll sempre ativo */
+      scrollbar-width: none; /* Firefox */
+    }
+
+    body::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Edge */
+    }
+
+    /* A imagem de fundo desfocada */
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('./static/609_indesign-2.png') no-repeat center center scroll;
+      background-size: cover;
+      filter: blur(4px); /* Aplica o desfoque */
+      z-index: -1; /* Coloca a imagem atrás do conteúdo */
+    }
+
+    .main-content {
+      position: relative;
+      z-index: 1; /* Garante que o conteúdo esteja à frente da imagem de fundo */
+    }
+
+    .navbar-logo {
+      height: 60px; /* Tamanho aumentado do logo */
+      margin-right: 10px;
+    }
+
+    .navbar-nav .nav-link {
+      color: #f8f9fa;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #ff6347;
+    }
+
+    .navbar-custom {
+      background-color: rgba(52, 58, 64, 0.8); /* Tom não muito claro nem muito escuro, com transparência */
+      backdrop-filter: blur(1px); /* Desfoque */
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: row; /* Manter logo e botão do menu na mesma linha */
+        justify-content: space-between; /* Logo à esquerda e botão do menu à direita */
+        background-color: rgba(52, 58, 64, 0.8); /* Tom não muito claro nem muito escuro, com transparência */
+        backdrop-filter: blur(1px); /* Desfoque */
+      }
+
+      .navbar-nav {
+        text-align: left; /* Alinhar à esquerda */
+        flex-direction: column;
+        align-items: flex-start; /* Alinhar à esquerda */
+        gap: 0.5rem;
+        box-sizing: border-box;
+      }
+
+      .navbar-toggler {
+        display: block;
+      }
+
+      .navbar-nav {
+        display: none;
+        width: 100%;
+      }
+
+      .navbar-nav.show {
+        display: flex;
+      }
     }
 
     main {
-      flex: 1;
+      min-height: 120vh;
+      padding-bottom: 2rem;
     }
 
     footer {
-      background-color: #343a40;
+      background-color: rgba(52, 58, 64, 0.8); /* Cor de fundo igual à da navbar */
+      backdrop-filter: blur(1px); /* Desfoque igual ao da navbar */
       color: #f8f9fa;
       text-align: center;
       padding: 1rem 0;
     }
+
+    a {
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #ff6347;
+    }
+
+    .advantages {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 2rem;
+      color: #f8f9fa;
+      backdrop-filter: blur(10px);
+      margin: 2rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 100vw; /* Garantir que a largura seja 100% da viewport */
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+    }
+
+    .advantages .advantage {
+      background-color: rgba(52, 58, 64, 0.6);
+      padding: 1rem;
+      border-radius: 5px;
+      flex: 1 1 calc(50% - 1rem);
+      margin: 0.5rem;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .advantages .advantage:hover {
+      transform: scale(1.05);
+      background-color: rgba(52, 58, 64, 0.8);
+    }
+
+    .advantages .advantage h3 {
+      color: #00b6fa;
+      margin-bottom: 0.5rem;
+    }
+
+    .title, .text {
+      width: 100%;
+      text-align: inherit;
+      margin-bottom: 2rem;
+      color: #f8f9fa;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 0; /* Remover padding lateral */
+      background-color: rgba(255, 255, 255, 0.8);
+      color: #343a40; /* Ajustar cor do texto para melhor contraste */
+
+      margin-bottom: 2rem;
+      width: 100vw; /* Garantir que a largura seja 100% da viewport */
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adicionar sombra */
+    }
+
+    .hero:hover {
+      background-color: rgba(255, 255, 255, 0.9);
+      transform: scale(1.02);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .hero h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #343a40;
+      animation: fadeIn 1s ease-in-out;
+     
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      animation: fadeIn 1.5s ease-in-out;
+      color: #343a40;
+    }
+
+    .hero .btn {
+      font-size: 1.2rem;
+      padding: 0.75rem 1.5rem;
+      animation: fadeIn 2s ease-in-out;
+      background-color: #343a40;
+      border-color: #343a40;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .testimonials {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 2rem;
+    
+      color: #f8f9fa;
+      backdrop-filter: blur(10px);
+      margin: 2rem 0;
+      width: 100vw; /* Garantir que a largura seja 100% da viewport */
+      margin-left: -9.45vw;
+      margin-right: -100vw;
+    }
+
+    .testimonials .testimonial {
+      margin-bottom: 1.5rem;
+    }
+
+    .testimonials .testimonial p {
+      font-style: italic;
+    }
+
+    .testimonials .testimonial h4 {
+      margin-top: 0.5rem;
+      color: #00b6fa;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-icons a {
+      color: #f8f9fa;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #ff6347;
+    }
+
+    .gallery {
+      display: flex;
+      overflow: hidden;
+      margin: 2rem 2;
+      border-radius: 10px;
+      max-width: 1000px; /* Tamanho máximo da galeria */
+      margin: 2rem auto; /* Centralizar a galeria */
+    }
+
+    .gallery img {
+      width: 33.33%;
+      height: auto; /* Manter a proporção da imagem */
+      aspect-ratio: 1 / 1; /* Garantir que a altura seja igual à largura */
+      transition: transform 0.5s ease;
+      border: 2px solid #f8f9fa; /* Borda em volta de cada imagem */
+      border-radius: 5px; /* Bordas arredondadas */
+      margin: 0 5px; /* Espaçamento entre as imagens */
+    }
+
+    .gallery-container {
+      position: relative;
+    }
+
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+    .gallery-nav button {
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      pointer-events: all;
+    }
+    section {
+  margin-bottom: 0; /* Remove espaçamento vertical entre sections */
+  padding:  0;  /* Mantém um pequeno padding interno */
+}
+    .gallery-nav button:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
   </style>
 </head>
 <body>
+  <div class="background"></div> <!-- Div que vai ter a imagem de fundo desfocada -->
+  
   <div id="navbar-placeholder"></div>
 
-  <main class="container my-5">
-    <section>
-      <h2 class="title">Bem-vindo à ARG</h2>
-      <p class="text">A ARG é uma empresa de construção dedicada a fornecer serviços de alta qualidade...</p>
+  <main class="container my-5 main-content">
+    <section class="hero">
+      <div class="hero-box">
+        <h1>Bem-vindo à ARG</h1>
+        <p>A sua parceira de confiança em construção e imobiliário. Oferecemos serviços de alta qualidade para transformar os seus sonhos em realidade.</p>
+        <a href="contact.html" class="btn btn-primary">Contacte-nos</a>
+        <br>
+        <br>
+        <h2 class="title">Sobre Nós</h2>
+        <p class="text">
+          Com mais de 20 anos de experiência, a ARG se destaca pela transparência e rigor. Nossa missão é fornecer serviços de construção e imobiliário de alta qualidade, sempre com foco na satisfação do cliente.
+        </p>
+      </div>
     </section>
+    <section class="advantages">
+      <h2 class="title" style="text-align: center;">Por Que Confiar na ARG?</h2>
+      <div class="advantage">
+        <h3>🔍 Transparência</h3>
+        <p>Com mais de 20 anos de experiência, a nossa transparência em todas as etapas do processo é o que nos distingue. Mantemos os nossos clientes informados e envolvidos em cada decisão.</p>
+      </div>
+      <div class="advantage">
+        <h3>📏 Rigor</h3>
+        <p>Trabalhamos com um rigor inigualável, garantindo que cada detalhe é executado com precisão. A nossa dedicação à excelência é evidente em todos os projetos que realizamos.</p>
+      </div>
+      <div class="advantage">
+        <h3>🏆 Experiência</h3>
+        <p>A nossa vasta experiência no mercado imobiliário faz de nós uma escolha confiável e segura. Com um histórico comprovado de sucesso, estamos preparados para enfrentar qualquer desafio.</p>
+      </div>
+      <div class="advantage">
+        <h3>🌟 Qualidade</h3>
+        <p>Comprometemo-nos a oferecer serviços de alta qualidade, utilizando os melhores materiais e técnicas inovadoras. A nossa reputação como referência no setor é fruto do nosso compromisso com a qualidade.</p>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <img src="./static/609_indesign-2.png" alt="Imagem 1">
+      <img src="./static/609_indesign-2.png" alt="Imagem 2">
+      <img src="./static/609_indesign-2.png" alt="Imagem 3">
+      <img src="./static/609_indesign-2.png" alt="Imagem 4">
+      <img src="./static/609_indesign-2.png" alt="Imagem 5">
+      <img src="./static/609_indesign-2.png" alt="Imagem 6">
+      <img src="./static/609_indesign-2.png" alt="Imagem 7">
+      <img src="./static/609_indesign-2.png" alt="Imagem 8">
+      <img src="./static/609_indesign-2.png" alt="Imagem 9">
+      <img src="./static/609_indesign-2.png" alt="Imagem 10">
+      <img src="./static/609_indesign-2.png" alt="Imagem 11">
+    </section>
+
+    <section class="testimonials">
+      <h2 class="title" style="text-align: center;">O Que Nossos Clientes Dizem</h2>
+      
+      <div class="testimonial">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+          <img src="./static/Pedro.jpg" alt="João Silva" style="width: 50px; height: 50px; border-radius: 50%;">
+          <h4 style="margin: 0;">— João Silva</h4>
+        </div>
+        <p style="text-align: center;">"A ARG transformou a nossa visão em realidade. O nível de profissionalismo e atenção aos detalhes foi excepcional."</p>
+      </div>
+      
+      <div class="testimonial">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+          <img src="./static/istockphoto-517234226-612x612.jpg" alt="Maria Fernandes" style="width: 50px; height: 50px; border-radius: 50%;">
+          <h4 style="margin: 0;">— Maria Fernandes</h4>
+        </div>
+        <p style="text-align: center;">"Estamos extremamente satisfeitos com o trabalho da ARG. Eles entregaram tudo dentro do prazo e com qualidade superior."</p>
+      </div>
+      
+    </section>
+    
+
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    </div>
   </main>
 
-  <div id="footer-placeholder"></div>
+  <footer>
+    <p>&copy; 2025 ARG. Todos os direitos reservados.</p>
+  </footer>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="loading.js"></script>
   <script>
     function loadHTML(elementId, filePath, callback) {
       fetch(filePath)
         .then(response => response.text())
         .then(data => {
           document.getElementById(elementId).innerHTML = data;
-          if (callback) callback();
+          if (callback) callback();  // Chamamos a função callback após o HTML ser carregado
         })
         .catch(error => console.error('Error loading HTML:', error));
     }
@@ -60,19 +407,16 @@
       const navLinks = document.querySelector('.navbar-nav');
       const navbar = document.querySelector('.navbar');
 
-      // Toggle navbar links
+      // Adiciona o evento para alternar o menu de navegação
       navToggle.addEventListener('click', function() {
         navLinks.classList.toggle('show');
       });
 
-      // Smooth scroll for anchor links
+      // Adiciona o evento de navegação suave nos links
       const links = document.querySelectorAll('.nav-link');
       for (const link of links) {
         link.addEventListener('click', function(e) {
-          // Permitir redirecionamento para links externos
-          if (this.getAttribute('href').startsWith('http')) {
-            return;
-          }
+          if (this.getAttribute('href').startsWith('http')) return;
           e.preventDefault();
           const targetId = this.getAttribute('href').substring(1);
           const targetElement = document.getElementById(targetId);
@@ -87,12 +431,12 @@
         });
       }
 
-      // Adjust navbar based on window size
+      // Ajusta a navbar conforme o tamanho da janela
       function adjustNavbar() {
         if (window.innerWidth < 768) {
-          navbar.style.backgroundColor = '#000000'; /* Cor de fundo igual à da página */
+          navbar.classList.add('navbar-custom');
         } else {
-          navbar.style.backgroundColor = ''; /* Remover cor de fundo */
+          navbar.classList.remove('navbar-custom');
         }
       }
 
@@ -101,8 +445,28 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-      loadHTML('navbar-placeholder', 'navbar.html', initializeNavbar);
+      // Carrega a navbar após o DOM estar pronto
+      loadHTML('navbar-placeholder', 'navbar.html', function() {
+        initializeNavbar();
+      });
       loadHTML('footer-placeholder', 'footer.html');
+
+      // Galeria de imagens rotativa
+      const gallery = document.querySelector('.gallery');
+      let scrollAmount = 0;
+
+      function autoScrollGallery() {
+        scrollAmount += gallery.clientWidth / 3.06 ;
+        if (scrollAmount >= gallery.scrollWidth) {
+          scrollAmount = 0;
+        }
+        gallery.scrollTo({
+          left: scrollAmount,
+          behavior: 'smooth'
+        });
+      }
+
+      setInterval(autoScrollGallery, 5000); // Roda a cada 10 segundos
     });
   </script>
 </body>
