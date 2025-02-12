@@ -8,323 +8,455 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     body, html {
-      height: 100%;
-      margin: 0;
-      color: #f8f9fa;
-      overflow-y: scroll; /* Scroll sempre ativo */
-      scrollbar-width: none; /* Firefox */
-    }
-
-    body::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Edge */
-    }
-
-    /* A imagem de fundo desfocada */
-    .background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('./static/609_indesign-2.png') no-repeat center center scroll;
-      background-size: cover;
-      filter: blur(4px); /* Aplica o desfoque */
-      z-index: -1; /* Coloca a imagem atrás do conteúdo */
-    }
-
-    .main-content {
-      position: relative;
-      z-index: 1; /* Garante que o conteúdo esteja à frente da imagem de fundo */
-    }
-
-    .navbar-logo {
-      height: 60px; /* Tamanho aumentado do logo */
-      margin-right: 10px;
-    }
-
-    .navbar-nav .nav-link {
-      color: #f8f9fa;
-      transition: color 0.3s ease;
-    }
-
-    .navbar-nav .nav-link:hover {
-      color: #ff6347;
-    }
-
-    .navbar-custom {
-      background-color: rgba(52, 58, 64, 0.8); /* Tom não muito claro nem muito escuro, com transparência */
-      backdrop-filter: blur(1px); /* Desfoque */
-    }
-
-    @media (max-width: 768px) {
-      .navbar {
-        flex-direction: row; /* Manter logo e botão do menu na mesma linha */
-        justify-content: space-between; /* Logo à esquerda e botão do menu à direita */
-        background-color: rgba(52, 58, 64, 0.8); /* Tom não muito claro nem muito escuro, com transparência */
-        backdrop-filter: blur(1px); /* Desfoque */
-      }
-
-      .navbar-nav {
-        text-align: left; /* Alinhar à esquerda */
-        flex-direction: column;
-        align-items: flex-start; /* Alinhar à esquerda */
-        gap: 0.5rem;
-        box-sizing: border-box;
-      }
-
-      .navbar-toggler {
-        display: block;
-      }
-
-      .navbar-nav {
-        display: none;
-        width: 100%;
-      }
-
-      .navbar-nav.show {
-        display: flex;
-      }
-    }
-
-    main {
-      min-height: 120vh;
-      padding-bottom: 2rem;
-    }
-
-    footer {
-      background-color: rgba(52, 58, 64, 0.8); /* Cor de fundo igual à da navbar */
-      backdrop-filter: blur(1px); /* Desfoque igual ao da navbar */
-      color: #f8f9fa;
-      text-align: center;
-      padding: 1rem 0;
-    }
-
-    a {
-      transition: color 0.3s ease;
-    }
-
-    a:hover {
-      color: #ff6347;
-    }
-
-    .advantages {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 2rem;
-      color: #f8f9fa;
-      backdrop-filter: blur(10px);
-      margin: 2rem 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      width: 100vw; /* Garantir que a largura seja 100% da viewport */
-      position: relative;
-      left: 50%;
-      right: 50%;
-      margin-left: -50vw;
-      margin-right: -50vw;
-    }
-
-    .advantages .advantage {
-      background-color: rgba(52, 58, 64, 0.6);
-      padding: 1rem;
-      border-radius: 5px;
-      flex: 1 1 calc(50% - 1rem);
-      margin: 0.5rem;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-
-    .advantages .advantage:hover {
-      transform: scale(1.05);
-      background-color: rgba(52, 58, 64, 0.8);
-    }
-
-    .advantages .advantage h3 {
-      color: #00b6fa;
-      margin-bottom: 0.5rem;
-    }
-
-    .title, .text {
-      width: 100%;
-      text-align: inherit;
-      margin-bottom: 2rem;
-      color: #f8f9fa;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 4rem 0; /* Remover padding lateral */
-      background-color: rgba(255, 255, 255, 0.8);
-      color: #343a40; /* Ajustar cor do texto para melhor contraste */
-
-      margin-bottom: 2rem;
-      width: 100vw; /* Garantir que a largura seja 100% da viewport */
-      position: relative;
-      left: 50%;
-      right: 50%;
-      margin-left: -50vw;
-      margin-right: -50vw;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adicionar sombra */
-    }
-
-    .hero:hover {
-      background-color: rgba(255, 255, 255, 0.9);
-      transform: scale(1.02);
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      animation: fadeIn 1s ease-in-out;
-    }
-    .hero h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #343a40;
-      animation: fadeIn 1s ease-in-out;
-     
-    }
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      animation: fadeIn 1.5s ease-in-out;
-      color: #343a40;
-    }
-
-    .hero .btn {
-      font-size: 1.2rem;
-      padding: 0.75rem 1.5rem;
-      animation: fadeIn 2s ease-in-out;
-      background-color: #343a40;
-      border-color: #343a40;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .testimonials {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 2rem;
-    
-      color: #f8f9fa;
-      backdrop-filter: blur(10px);
-      margin: 2rem 0;
-      width: 100vw; /* Garantir que a largura seja 100% da viewport */
-      margin-left: -9.45vw;
-      margin-right: -100vw;
-    }
-
-    .testimonials .testimonial {
-      margin-bottom: 1.5rem;
-    }
-
-    .testimonials .testimonial p {
-      font-style: italic;
-    }
-
-    .testimonials .testimonial h4 {
-      margin-top: 0.5rem;
-      color: #00b6fa;
-    }
-
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .social-icons a {
-      color: #f8f9fa;
-      font-size: 1.5rem;
-      transition: color 0.3s ease;
-    }
-
-    .social-icons a:hover {
-      color: #ff6347;
-    }
-
-    .gallery {
-      display: flex;
-      overflow: hidden;
-      margin: 2rem 2;
-      border-radius: 10px;
-      max-width: 1000px; /* Tamanho máximo da galeria */
-      margin: 2rem auto; /* Centralizar a galeria */
-    }
-
-    .gallery img {
-      width: 33.33%;
-      height: auto; /* Manter a proporção da imagem */
-      aspect-ratio: 1 / 1; /* Garantir que a altura seja igual à largura */
-      transition: transform 0.5s ease;
-      border: 2px solid #f8f9fa; /* Borda em volta de cada imagem */
-      border-radius: 5px; /* Bordas arredondadas */
-      margin: 0 5px; /* Espaçamento entre as imagens */
-    }
-
-    .gallery-container {
-      position: relative;
-    }
-
-    .gallery-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      pointer-events: none;
-    }
-    .gallery-nav button {
-      background: rgba(0, 0, 0, 0.5);
-      border: none;
-      color: #fff;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      pointer-events: all;
-    }
-    section {
-  margin-bottom: 0; /* Remove espaçamento vertical entre sections */
-  padding:  0;  /* Mantém um pequeno padding interno */
+  height: 100%;
+  margin: 0;
+  color: #f8f9fa;
+  overflow-y: scroll; /* Scroll sempre ativo */
+  scrollbar-width: none; /* Firefox */
 }
-    .gallery-nav button:hover {
-      background: rgba(0, 0, 0, 0.8);
-    }
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+/* A imagem de fundo desfocada */
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./static/609_indesign-2.png');
+  background-size: cover;
+  filter: blur(7px); /* Aplica o desfoque */
+  z-index: -1; /* Coloca a imagem atrás do conteúdo */
+  backdrop-filter: blur(10px) brightness(0.7) contrast(1.2); /* Adiciona o desbaste e outros filtros */
+}
+
+.background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8); /* Adiciona uma camada escura com opacidade */
+  z-index: -1; /* Mantém a camada atrás do conteúdo */
+}
+
+.main-content {
+  position: relative;
+  z-index: 1; /* Garante que o conteúdo esteja à frente da imagem de fundo */
+}
+
+.navbar-logo {
+  height: 60px; /* Tamanho aumentado do logo */
+  margin-right: 10px;
+}
+
+.navbar-nav .nav-link {
+  color: #f8f9fa;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ff6347;
+}
+
+.navbar-custom {
+  background-color: rgba(52, 58, 64, 0.8); /* Tom não muito claro nem muito escuro, com transparência */
+  backdrop-filter: blur(1px); /* Desfoque */
+}
+
+
+
+  .navbar-nav {
+    text-align: left; /* Alinhar à esquerda */
+    flex-direction: column;
+    align-items: flex-start; /* Alinhar à esquerda */
+    gap: 0.5rem;
+    box-sizing: border-box;
+  }
+
+  .navbar-toggler {
+    display: block;
+  }
+
+  .navbar-nav {
+    display: none;
+    width: 100%;
+  }
+
+  .navbar-nav.show {
+    display: flex;
+  }
+
+
+main {
+  min-height: 120vh;
+  padding-bottom: 2rem;
+}
+
+footer {
+  background-color: rgba(0, 0, 0, 0.3); /* Cor de fundo igual à da navbar */
+  backdrop-filter: blur(1px); /* Desfoque igual ao da navbar */
+  color: #f8f9fa;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+a {
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #ff6347;
+}
+
+.advantages {
+ 
+  padding: 2rem;
+  color: #f8f9fa;
+  backdrop-filter: blur(10px);
+  margin: 2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100vw; /* Garantir que a largura seja 100% da viewport */
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+
+
+.advantages .advantage {
+  background-color: rgba(52, 58, 64, 0.6);
+  padding: 1rem;
+  border-radius: 5px;
+  flex: 1 1 calc(50% - 1rem);
+  margin: 0.5rem;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.advantages .advantage1 {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 1rem;
+  border-radius: 5px;
+  flex: 1 1 calc(50% - 1rem);
+  margin: 0.5rem;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.advantages .advantage:hover {
+  transform: scale(1.05);
+  background-color: rgba(52, 58, 64, 0.8);
+}
+
+.advantages .advantage h3 {
+  color: #00b6fa;
+  margin-bottom: 0.5rem;
+}
+
+.title, .text {
+  width: 100%;
+  text-align: inherit;
+  margin-bottom: 2rem;
+  color: #f8f9fa;
+}
+.welcome-image {
+  order: 1;
+  float: left;
+  margin-right: 1rem;
+  width: 300px; /* Largura inicial da imagem */
+  height: auto; /* Mantém a proporção da imagem */
+  transition: transform 0.3s ease, width 0.3s ease; /* Transição suave para transformações */
+}
+.advantage1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.text-content {
+  order: 2;
+  position: relative;
+  z-index: 1; /* Garante que o texto esteja à frente da imagem */
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .welcome-image {
+    width: 100%; /* Largura total em telas menores */
+    margin: 0 auto; /* Centraliza a imagem */
+    display: block; /* Garante que a imagem seja um bloco */
+  }
+
+  .text-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5); /* Fundo semitransparente para melhor legibilidade */
+    padding: 1rem;
+    border-radius: 5px;
+  }
+
+  .advantages .advantage {
+    position: relative;
+  }
+}
+.hero {
+  text-align: center;
+  padding: 4rem 0; /* Remover padding lateral */
+  color: white; /* Ajustar cor do texto para melhor contraste */
+  margin-bottom: 2rem;
+  width: 100vw; /* Garantir que a largura seja 100% da viewport */
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adicionar sombra */
+}
+
+.hero:hover {
+  transform: scale(1.02);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.hero h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: white;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  animation: fadeIn 1.5s ease-in-out;
+  color: white;
+}
+.btn {
+  font-size: 1.2rem;
+  padding: 0.75rem 1.5rem;
+  animation: fadeIn 2s ease-in-out;
+  background-color: #ffffff;
+  border-color: white;
+  color: white; /* Cor do texto quando não está sendo clicado */
+}
+
+.advantage .btn {
+  font-size: 1.2rem;
+  padding: 0.75rem 1.5rem;
+  animation: fadeIn 2s ease-in-out;
+  background-color: black;
+  border-color: white; /* Borda branca */
+  color: white; /* Cor do texto */
+}
+
+.btn:hover {
+  background-color: #ffffff; /* Mantém a cor de fundo original */
+  border-color: white; /* Mantém a cor da borda original */
+  color: black; /* Cor do texto quando o botão está sendo clicado */
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.testimonials {
+
+  padding: 2rem;
+  color: #f8f9fa;
+  backdrop-filter: blur(10px);
+  margin: 2rem 0;
+  width: 100vw; /* Garantir que a largura seja 100% da viewport */
+  margin-left: -9.45vw;
+  margin-right: -100vw;
+}
+
+.testimonials .testimonial {
+  margin-bottom: 1.5rem;
+}
+
+.testimonials .testimonial p {
+  font-style: italic;
+}
+
+.testimonials .testimonial h4 {
+  margin-top: 0.5rem;
+  color: #00b6fa;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.social-icons a {
+  color: #f8f9fa;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #ff6347;
+}
+
+.gallery {
+  display: flex;
+  overflow: hidden;
+  margin: 2rem 2;
+  border-radius: 10px;
+  max-width: 1000px; /* Tamanho máximo da galeria */
+  margin: 2rem auto; /* Centralizar a galeria */
+}
+
+.gallery img {
+  width: 33.33%;
+  height: auto; /* Manter a proporção da imagem */
+  aspect-ratio: 1 / 1; /* Garantir que a altura seja igual à largura */
+  transition: transform 0.5s ease;
+  border: 2px solid #f8f9fa; /* Borda em volta de cada imagem */
+  border-radius: 5px; /* Bordas arredondadas */
+  margin: 0 5px; /* Espaçamento entre as imagens */
+}
+
+.gallery-container {
+  position: relative;
+}
+
+.gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.gallery-nav button {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+section {
+  margin-bottom: 0; /* Remove espaçamento vertical entre sections */
+  padding: 0; /* Mantém um pequeno padding interno */
+}
+
+.gallery-nav button:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.button-container {
+  order: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem; /* Adiciona margem superior para espaçamento */
+  width: 100%; /* Ocupa 100% da largura */
+}
+.new-btn {
+  font-size: 1.2rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #000; /* Fundo preto */
+  border: 2px solid #fff; /* Borda branca */
+  color: #fff; /* Texto branco */
+  text-transform: uppercase; /* Texto em maiúsculas */
+  letter-spacing: 1px; /* Espaçamento entre letras */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Transições suaves */
+  cursor: pointer; /* Cursor de ponteiro */
+  display: inline-block; /* Exibição em linha */
+  text-align: center; /* Alinhamento do texto */
+  border-radius: 5px; /* Bordas arredondadas */
+}
+.new-btn:hover {
+  background-color: #fff; /* Fundo branco */
+  color: #000; /* Texto preto */
+  transform: scale(1.05); /* Aumenta ligeiramente o botão */
+}
+
+.new-btn:active {
+  transform: scale(0.95); /* Diminui ligeiramente o botão ao clicar */
+}
+
+@media (max-width: 768px) {
+  .advantage1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .welcome-image {
+    order: 2;
+    width: 100%; /* Largura total em telas menores */
+    margin: 0 auto; /* Centraliza a imagem */
+    display: block; /* Garante que a imagem seja um bloco */
+  }
+
+  .text-content {
+    order: 1;
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    text-align: center;
+    background: none; /* Remove o fundo semitransparente */
+    padding: 0;
+  }
+
+  .button-container {
+    order: 3;
+    margin-top: 1rem; /* Adiciona margem superior para espaçamento */
+  }
+}
   </style>
 </head>
 <body>
-  <div class="background"></div> <!-- Div que vai ter a imagem de fundo desfocada -->
-  
+  <div class="background"></div>
   <div id="navbar-placeholder"></div>
 
   <main class="container my-5 main-content">
-    <section class="hero">
-      <div class="hero-box">
-        <h1>Bem-vindo à ARG</h1>
-        <p>A sua parceira de confiança em construção e imobiliário. Oferecemos serviços de alta qualidade para transformar os seus sonhos em realidade.</p>
-        <a href="contact.html" class="btn btn-primary">Contacte-nos</a>
-        <br>
-        <br>
-        <h2 class="title">Sobre Nós</h2>
-        <p class="text">
-          Com mais de 20 anos de experiência, a ARG se destaca pela transparência e rigor. Nossa missão é fornecer serviços de construção e imobiliário de alta qualidade, sempre com foco na satisfação do cliente.
-        </p>
+    <section class="advantages">
+      <div class="advantage1">
+        <img src="./static/609_indesign-2.png" alt="Imagem de Boas-vindas" class="welcome-image">
+        <div class="text-content">
+          <h1>Bem-vindo à ARG</h1>
+          <p>A sua parceira de confiança em construção e imobiliário. Oferecemos serviços de alta qualidade para transformar os seus sonhos em realidade.</p>
+        </div>
+        <div class="button-container">
+          <a href="contact.html" class="new-btn">Fale Connosco</a>
+        </div>
       </div>
     </section>
     <section class="advantages">
       <h2 class="title" style="text-align: center;">Por Que Confiar na ARG?</h2>
       <div class="advantage">
         <h3>🔍 Transparência</h3>
-        <p>Com mais de 20 anos de experiência, a nossa transparência em todas as etapas do processo é o que nos distingue. Mantemos os nossos clientes informados e envolvidos em cada decisão.</p>
+        <p>Com mais de 50 anos de experiência, a nossa transparência em todas as etapas do processo é o que nos distingue. Mantemos os nossos clientes informados e envolvidos em cada decisão.</p>
       </div>
       <div class="advantage">
         <h3>📏 Rigor</h3>
@@ -355,7 +487,7 @@
     </section>
 
     <section class="testimonials">
-      <h2 class="title" style="text-align: center;">O Que Nossos Clientes Dizem</h2>
+      <h2 class="title" style="text-align: center;">O Que os Nossos Clientes Dizem</h2>
       
       <div class="testimonial">
         <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
