@@ -1,4 +1,3 @@
-// loading.js
 document.addEventListener('DOMContentLoaded', function() {
     const loadingDiv = document.createElement('div');
     loadingDiv.id = 'loading';
@@ -7,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const style = document.createElement('style');
     style.innerHTML = `
-        body, html {
+        body.loading, html.loading {
             margin: 0;
             padding: 0;
             width: 100%;
@@ -38,10 +37,15 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 
+    document.body.classList.add('loading');
+    document.documentElement.classList.add('loading');
+
     window.addEventListener('load', function() {
         setTimeout(function() {
             document.getElementById('loading').style.display = 'none';
             document.getElementById('content').style.display = 'block';
-        }, 1000); // 1000 milissegundos = 1 segundos
+            document.body.classList.remove('loading');
+            document.documentElement.classList.remove('loading');
+        }, 1000); // 1000 milissegundos = 1 segundo
     });
 });
