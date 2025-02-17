@@ -6,6 +6,7 @@
   <title>ARG - Contactos</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     @import 'https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300';
 
@@ -15,19 +16,49 @@
       display: flex;
       flex-direction: column;
       font-family: 'Open Sans Condensed', sans-serif;
-      background-color: black; /* Fundo escuro */
       color: #f8f9fa; /* Texto claro */
+    }
+
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      background-image: url('./static/609_indesign-2.png');
+      background-size: cover;
+      filter: blur(7px); /* Aplica o desfoque */
+      z-index: -1; /* Coloca a imagem atrás do conteúdo */
+      backdrop-filter: blur(10px) brightness(0.7) contrast(1.2); /* Adiciona o desbaste e outros filtros */
+    }
+
+    .background::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8); /* Adiciona uma camada escura com opacidade */
+      z-index: -1; /* Mantém a camada atrás do conteúdo */
     }
 
     main {
       flex: 1;
+      position: relative;
+      z-index: 1; /* Garante que o conteúdo esteja à frente da imagem de fundo */
     }
 
     footer {
-      background-color: black;
+      background-color: rgba(0, 0, 0, 0.3); /* Cor de fundo igual à da navbar */
+      backdrop-filter: blur(1px); /* Desfoque igual ao da navbar */
       color: #f8f9fa;
       text-align: center;
       padding: 1rem 0;
+      width: 100%;
+      position: relative;
+      bottom: 0;
     }
 
     .contact-info {
@@ -50,6 +81,7 @@
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: none; /* Inicialmente escondido */
     }
 
     .title {
@@ -57,6 +89,7 @@
       margin-bottom: 1rem;
       color: #f8f9fa; /* Cor do título */
       text-align: center;
+      animation: fadeIn 1s ease-in-out;
     }
 
     .text {
@@ -65,16 +98,28 @@
       color: #e0e0e0; /* Cor do texto */
       text-align: center;
       margin-bottom: 2rem;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .contact-cards {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
     }
 
     .contact-card {
-      background-color: #1f1f1f; /* Fundo escuro do contêiner */
+      background-color: rgba(52, 58, 64, 0.6); /* Fundo escuro do contêiner */
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       padding: 20px;
-      margin-bottom: 20px;
+      margin: 10px;
+      width: 30%; /* Ajuste conforme necessário */
+      height: 200px; /* Altura fixa para tornar as caixas quadradas */
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       text-align: center; /* Centralizar conteúdo */
+      animation: fadeIn 2s ease-in-out;
+      cursor: pointer; /* Adiciona cursor de ponteiro */
+      color: white;
     }
 
     .contact-card:hover {
@@ -91,92 +136,128 @@
       margin-bottom: 10px;
     }
 
+    .contact-card i {
+      font-size: 1.5rem;
+      margin-right: 10px;
+      color: #007bff; /* Cor dos ícones */
+    }
+
     .btn {
-      line-height: 50px;
-      height: 50px;
-      text-align: center;
-      width: 250px;
-      cursor: pointer;
-      color: #FFF;
-      transition: all 0.3s;
-      position: relative;
-      margin-top: 20px;
+      font-size: 1.2rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #000; /* Fundo preto */
+      border: 2px solid #fff; /* Borda branca */
+      color: #fff; /* Texto branco */
+      text-transform: uppercase; /* Texto em maiúsculas */
+      letter-spacing: 1px; /* Espaçamento entre letras */
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Transições suaves */
+      cursor: pointer; /* Cursor de ponteiro */
+      display: inline-block; /* Exibição em linha */
+      text-align: center; /* Alinhamento do texto */
+      border-radius: 5px; /* Bordas arredondadas */
     }
 
-    .btn span {
-      transition: all 0.3s;
-      color: #FFF; /* Cor do texto dentro do botão */
+    .btn:hover {
+      background-color: #fff; /* Fundo branco */
+      color: #000; /* Texto preto */
+      transform: scale(1.05); /* Aumenta ligeiramente o botão */
     }
 
-    .btn-one::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
+    .btn:active {
+      transform: scale(0.95); /* Diminui ligeiramente o botão ao clicar */
+    }
+
+    /* Animações */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .navbar-logo {
+      height: 60px; /* Tamanho aumentado do logo */
+      margin-right: 10px;
+    }
+
+    .navbar-nav .nav-link {
+      color: #f8f9fa;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #ff6347;
+    }
+
+    .navbar-custom {
+      background-color: rgba(52, 58, 64, 0.8); /* Tom não muito claro nem muito escuro, com transparência */
+      backdrop-filter: blur(1px); /* Desfoque */
+    }
+
+    .navbar-nav {
+      text-align: left; /* Alinhar à esquerda */
+      flex-direction: column;
+      align-items: flex-start; /* Alinhar à esquerda */
+      gap: 0.5rem;
+      box-sizing: border-box;
+    }
+
+    .navbar-toggler {
+      display: block;
+    }
+
+    .navbar-nav {
+      display: none;
       width: 100%;
-      height: 100%;
-      z-index: 1;
-      opacity: 0;
-      transition: all 0.3s;
-      border-top-width: 1px;
-      border-bottom-width: 1px;
-      border-top-style: solid;
-      border-bottom-style: solid;
-      border-top-color: #FFF;
-      border-bottom-color: #FFF;
-      transform: scale(0 1);
     }
 
-    .btn-one:hover span {
-      letter-spacing: 2px;
+    .navbar-nav.show {
+      display: flex;
     }
 
-    .btn-one:hover::before {
-      opacity: 1; 
-      transform: scale(1, 1); 
-    }
-
-    .btn-one::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      transition: all 0.3s;
-      background-color: rgba(255,255,255,0.1);
-    }
-
-    .btn-one:hover::after {
-      opacity: 0; 
-      transform: scale(0.1, 1);
+    @media (max-width: 768px) {
+      .contact-card {
+        width: 100%; /* Ajuste para telas menores */
+        height: auto; /* Ajuste para telas menores */
+      }
     }
   </style>
 </head>
 <body>
+  <div class="background"></div>
   <div id="navbar-placeholder"></div>
 
   <main class="container my-5">
     <section>
       <h2 class="title">Contacte-nos</h2>
       <p class="text">Para mais informações, entre em contacto connosco através dos seguintes meios:</p>
-      <div class="contact-card">
-        <h3>Informações de Contato</h3>
-        <div class="contact-info">
-          <p><strong>Telefone:</strong> <a href="tel:+351123456789">+351 123 456 789</a></p>
-          <p><strong>Email:</strong> <a href="mailto:info@arg.com">info@arg.com</a></p>
-          <p><strong>Endereço:</strong> Rua da Póvoa de Cima, N110, Paços de Brandão, 4535-293</p>
+      <div class="contact-cards">
+        <div class="contact-card" onclick="window.location.href='tel:+351123456789'">
+          <h3><i class="fas fa-phone-alt"></i>Telefone</h3>
+          <p><a href="tel:+351123456789">+351 123 456 789</a></p>
         </div>
-        <a href="mailto:info@arg.com" class="btn btn-one"><span>Enviar Email</span></a>
+        <div class="contact-card" onclick="window.location.href='mailto:info@arg.com'">
+          <h3><i class="fas fa-envelope"></i>Email</h3>
+          <p><a href="mailto:info@arg.com">info@arg.com</a></p>
+        </div>
+        <div class="contact-card" onclick="document.getElementById('map-container').style.display='block'">
+          <h3><i class="fas fa-map-marker-alt"></i>Morada</h3>
+          <p>Rua da Póvoa de Cima, N110, Paços de Brandão, 4535-293</p>
+        </div>
       </div>
-      <div class="map-container">
+      <div id="map-container" class="map-container">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d269.6538712848254!2d-8.580795653426657!3d40.97636811222685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2478b0d731cef1%3A0x7664932d3affd430!2sR.%20P%C3%B3voa%20de%20Cima!5e1!3m2!1spt-PT!2spt!4v1739202236248!5m2!1spt-PT!2spt" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
       </div>
     </section>
   </main>
 
-  <div id="footer-placeholder"></div>
+  <footer>
+    <p>&copy; 2025 ARG. Todos os direitos reservados.</p>
+  </footer>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -197,19 +278,16 @@
       const navLinks = document.querySelector('.navbar-nav');
       const navbar = document.querySelector('.navbar');
 
-      // Toggle navbar links
+      // Adiciona o evento para alternar o menu de navegação
       navToggle.addEventListener('click', function() {
         navLinks.classList.toggle('show');
       });
 
-      // Smooth scroll for anchor links
+      // Adiciona o evento de navegação suave nos links
       const links = document.querySelectorAll('.nav-link');
       for (const link of links) {
         link.addEventListener('click', function(e) {
-          // Permitir redirecionamento para links externos
-          if (this.getAttribute('href').startsWith('http')) {
-            return;
-          }
+          if (this.getAttribute('href').startsWith('http')) return;
           e.preventDefault();
           const targetId = this.getAttribute('href').substring(1);
           const targetElement = document.getElementById(targetId);
@@ -224,12 +302,12 @@
         });
       }
 
-      // Adjust navbar based on window size
+      // Ajusta a navbar conforme o tamanho da janela
       function adjustNavbar() {
         if (window.innerWidth < 768) {
-          navbar.style.backgroundColor = 'black'; /* Cor de fundo igual à da página */
+          navbar.classList.add('navbar-custom');
         } else {
-          navbar.style.backgroundColor = ''; /* Remover cor de fundo */
+          navbar.classList.remove('navbar-custom');
         }
       }
 
@@ -238,7 +316,10 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-      loadHTML('navbar-placeholder', 'navbar.html', initializeNavbar);
+      // Carrega a navbar após o DOM estar pronto
+      loadHTML('navbar-placeholder', 'navbar.html', function() {
+        initializeNavbar();
+      });
       loadHTML('footer-placeholder', 'footer.html');
     });
   </script>

@@ -139,8 +139,45 @@ a:hover {
   flex: 1 1 calc(50% - 1rem);
   margin: 0.5rem;
   transition: transform 0.3s ease, background-color 0.3s ease;
+  animation: aparecer-par 1s ease-in-out;
+  animation-timeline: view();
+  animation-range: cover 0% cover 50%;
 }
 
+.advantages .advantage-impar {
+  background-color: rgba(52, 58, 64, 0.6);
+  padding: 1rem;
+  border-radius: 5px;
+  flex: 1 1 calc(50% - 1rem);
+  margin: 0.5rem;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  animation: aparecer-impar 2s ease-in-out;
+  animation-timeline: view();
+  animation-range: cover 0% cover 50%;
+}
+
+
+@keyframes aparecer-impar {
+  from {
+    opacity: 0;
+   translate: -500px 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes aparecer-par {
+  from {
+    opacity: 0;
+   translate: 500px 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
 .advantages .advantage1 {
   background-color: rgba(0, 0, 0, 0);
   padding: 1rem;
@@ -281,6 +318,56 @@ a:hover {
   }
 }
 
+/* Animação de digitação */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+
+
+.typing-text {
+  display: flex;
+  white-space: pre-wrap; /* Permite quebra de linha e preserva espaços */
+  overflow: hidden;
+  position: relative;
+  text-align: left; /* Centraliza o texto */
+}
+
+#text-content {
+  display: inline;
+}
+
+#cursor {
+  display: inline-block;
+  border-right: 2px solid #f8f9fa; /* Cor do cursor */
+  animation: blinking 0.75s step-end infinite;
+  position: absolute;
+  height: 1em; /* Define a altura do cursor como a altura da linha */
+}
+
+@keyframes blinking {
+  50% {
+    border-color: transparent;
+  }
+}
+
+/* Estilos para dispositivos móveis */
+@media (max-width: 768px) {
+  .text-content {
+    text-align: center; /* Centraliza o texto em dispositivos móveis */
+    margin-bottom: 1em; /* Adiciona uma linha de espaço abaixo */
+  }
+
+  .typing-text {
+    text-align: center; /* Centraliza o texto em dispositivos móveis */
+    margin: 0 auto; /* Remove espaço antes da frase iniciar */
+  }
+}
 .testimonials {
 
   padding: 2rem;
@@ -437,6 +524,21 @@ section {
     order: 3;
     margin-top: 1rem; /* Adiciona margem superior para espaçamento */
   }
+
+  .p{
+    width: 100ch;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: typing 2s;
+
+  }
+
+  @keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
 }
   </style>
 </head>
@@ -445,19 +547,23 @@ section {
   <div id="navbar-placeholder"></div>
 
   <main class="container my-5 main-content">
-    <section class="advantages">
-      <div class="advantage1">
-        <img src="./static/609_indesign-2.png" alt="Imagem de Boas-vindas" class="welcome-image">
-        <div class="text-content">
-          <h1>Bem-vindo à ARG</h1>
-          <p>A sua parceira de confiança em construção e imobiliário. Oferecemos serviços de alta qualidade para transformar os seus sonhos em realidade.</p>
-        </div>
-        <div class="button-container">
-          <a href="contact.html" class="new-btn">Fale Connosco</a>
-        </div>
+     <section class="advantages">
+    <div class="advantage1">
+      <img src="./static/609_indesign-2.png" alt="Imagem de Boas-vindas" class="welcome-image">
+      <div class="text-content">
+        <h1>Bem-vindo à ARG</h1>
+        <p class="typing-text" id="typing-text">
+          <span id="text-content"></span>
+          <span id="cursor">|</span>
+        </p>
       </div>
-    </section>
-
+      <div class="button-container">
+        <a href="contact.html" class="new-btn">Fale Connosco</a>
+      </div>
+    </div>
+  </section>
+  <br>
+    <br>
         <section class="gallery">
       <div class="gallery-container">
         <img src="./static/609_indesign-2.png" alt="Imagem 1">
@@ -471,11 +577,16 @@ section {
         <img src="./static/609_indesign-2.png" alt="Imagem 9">
         <img src="./static/609_indesign-2.png" alt="Imagem 10">
         <img src="./static/609_indesign-2.png" alt="Imagem 11">
+        <br>
       </div>
     </section>
+    <br>
+    <br>
     <section class="advantages">
-      <h2 class="title" style="text-align: center;">Por Que Confiar na ARG?</h2>
-      <div class="advantage">
+      <h2 class="title" style="text-align: center;">Por Que Confiar na ARG?<br></h2>
+      <br>
+      <br>
+      <div class="advantage-impar">
         <h3>🔍 Transparência</h3>
         <p>Com mais de 50 anos de experiência, a nossa transparência em todas as etapas do processo é o que nos distingue. Mantemos os nossos clientes informados e envolvidos em cada decisão.</p>
       </div>
@@ -483,7 +594,7 @@ section {
         <h3>📏 Rigor</h3>
         <p>Trabalhamos com um rigor inigualável, garantindo que cada detalhe é executado com precisão. A nossa dedicação à excelência é evidente em todos os projetos que realizamos.</p>
       </div>
-      <div class="advantage">
+      <div class="advantage-impar">
         <h3>🏆 Experiência</h3>
         <p>A nossa vasta experiência no mercado imobiliário faz de nós uma escolha confiável e segura. Com um histórico comprovado de sucesso, estamos preparados para enfrentar qualquer desafio.</p>
       </div>
@@ -492,7 +603,12 @@ section {
         <p>Comprometemo-nos a oferecer serviços de alta qualidade, utilizando os melhores materiais e técnicas inovadoras. A nossa reputação como referência no setor é fruto do nosso compromisso com a qualidade.</p>
       </div>
     </section>
+    <br>
+    <br>
+    <br>
 
+
+  
   </main>
 
   <footer>
@@ -579,6 +695,32 @@ section {
     
       setInterval(autoScrollGallery, 5000); // Roda a cada 5 segundos
     });
+
+document.addEventListener('DOMContentLoaded', function() {
+  const textElement = document.getElementById('text-content');
+  const cursorElement = document.getElementById('cursor');
+  const text = "A sua parceira de confiança em construção e imobiliário. Oferecemos serviços de alta qualidade para transformar os seus sonhos em realidade.";
+  let index = 0;
+  const maxCharsPerLine = 150; // Ajuste o número máximo de caracteres por linha conforme necessário
+
+  function type() {
+    if (index < text.length) {
+      textElement.textContent += text.charAt(index);
+      index++;
+      if (index % maxCharsPerLine === 0) {
+        textElement.innerHTML += '<br>'; // Adiciona uma quebra de linha
+      }
+      setTimeout(type, 55); // Ajuste o tempo de atraso conforme necessário
+    } else {
+      cursorElement.style.display = 'none'; // Esconde o cursor após a digitação completa
+    }
+    // Atualiza a posição do cursor
+    const textWidth = textElement.getBoundingClientRect().width;
+    cursorElement.style.left = `${textWidth}px`;
+  }
+
+  type();
+});
   </script>
 </body>
 </html>
