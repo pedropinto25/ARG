@@ -244,7 +244,7 @@
           <h3><i class="fas fa-envelope"></i>Email</h3>
           <p><a href="mailto:info@arg.com">info@arg.com</a></p>
         </div>
-        <div class="contact-card" onclick="document.getElementById('map-container').style.display='block'">
+        <div class="contact-card" onclick="toggleMap()">
           <h3><i class="fas fa-map-marker-alt"></i>Morada</h3>
           <p>Rua da Póvoa de Cima, N110, Paços de Brandão, 4535-293</p>
         </div>
@@ -313,6 +313,15 @@
 
       window.addEventListener('resize', adjustNavbar);
       adjustNavbar();
+    }
+
+    function toggleMap() {
+      const mapContainer = document.getElementById('map-container');
+      if (mapContainer.style.display === 'none' || mapContainer.style.display === '') {
+        mapContainer.style.display = 'block';
+      } else {
+        mapContainer.style.display = 'none';
+      }
     }
 
     document.addEventListener('DOMContentLoaded', function() {
